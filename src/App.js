@@ -1,23 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import React, {useState, useEffect} from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+import '@popperjs/core';
+import './styles/*';
 
 function App() {
+  const [error, setError] = useState(null);
+  const baseUrl = "http://localhost:8080/carrent/test_api";
+
+  useEffect(() => {
+    axios.get(baseUrl)
+    .then((response) => {
+      console.log(response);
+    })
+    .catch(error => {
+      setError(error);
+    })
+  }, []);
+
+  if (error) return `Error: ${error.message}`;
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
     </div>
   );
 }
