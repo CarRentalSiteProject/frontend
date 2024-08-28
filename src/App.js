@@ -1,10 +1,11 @@
-import './App.css';
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
+import Header from './Header';
+import MainContent from './MainContent';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '@popperjs/core';
-import './styles/*';
+//import './styles/*';
 
 function App() {
   const [error, setError] = useState(null);
@@ -23,7 +24,9 @@ function App() {
   if (error) return `Error: ${error.message}`;
   
   return (
-    <div className="App">
+    <div>
+      <Header />
+      <MainContent />
     </div>
   );
 }

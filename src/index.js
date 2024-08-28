@@ -5,7 +5,11 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '@popperjs/core';
-import './styles/*';
+import './styles/bootstrap/css/bootstrap.min.css';
+import './styles/bootstrap/css/bootstrap.rtl.min.css';
+import './styles/bootstrap_theme/bootstrap.css';
+import './styles/blocks.css';
+import './styles/style.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
