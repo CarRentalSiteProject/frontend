@@ -14,20 +14,20 @@ import '@popperjs/core';
 
 
 function App() {
-  const [error, setError] = useState(null);
-  const baseUrl = "http://localhost:8080/signup";
+  // const [error, setError] = useState(null);
+  // const baseUrl = "http://localhost:8080/signup";
 
-  useEffect(() => {
-    axios.get(baseUrl)
-    .then((response) => {
-      console.log(response);
-    })
-    .catch(error => {
-      setError(error);
-    })
-  }, []);
+  // useEffect(() => {
+  //   axios.get(baseUrl)
+  //   .then((response) => {
+  //     console.log(response);
+  //   })
+  //   .catch(error => {
+  //     setError(error);
+  //   })
+  // }, []);
 
-  if (error) return `Error: ${error.message}`;
+  // if (error) return `Error: ${error.message}`;
   
   return (
     <Router>

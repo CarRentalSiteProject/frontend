@@ -4,6 +4,7 @@ import SignUpForm from './SignUpForm';
 import Footer from './Footer';
 
 function Signup() {
+    
     return (
         <div>
             <main>
