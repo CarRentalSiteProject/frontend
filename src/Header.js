@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Header() {
     return (
@@ -38,7 +39,7 @@ function Header() {
                             </ul>
                             <div className="d-flex flex-wrap gap-2 py-1"> 
                                 <a href="#" className="btn btn-outline-primary pe-4 ps-4">Log In</a>
-                                <a href="#" className="btn btn-primary pe-4 ps-4">Sign Up</a> 
+                                <Link to="/signup" className="btn btn-primary pe-4 ps-4">Sign Up</Link>
                             </div>                         
                         </div>                     
                     </div>                 
