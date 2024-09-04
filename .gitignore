@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Compiled class file
 *.class
 
@@ -25,7 +24,6 @@ hs_err_pid*
 replay_pid*
 /build/
 /target/
-=======
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -49,4 +47,5 @@ replay_pid*
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
->>>>>>> 121f800b5d8650cbcc92a353b3078724557e9990
+
+.classpath
