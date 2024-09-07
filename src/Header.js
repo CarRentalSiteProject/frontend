@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
+import Search from './SearchEmbeded';
 
 function Header() {
     return (
@@ -22,19 +23,22 @@ function Header() {
                         <div className="collapse navbar-collapse " id="navbarNavDropdown-2"> 
                             <ul className="me-auto navbar-nav"> 
                                 <li className="nav-item"> 
-                                    <Link className="nav-link p-lg-3" to="#">Home</Link> 
+                                    <Link className="nav-link p-lg-3" to="/">Home</Link> 
                                 </li>
                                 <li className="nav-item"> 
-                                    <Link className="nav-link p-lg-3" to="#">Offers</Link> 
+                                    <Link className="nav-link p-lg-3" to="/search">Search</Link> 
                                 </li>
                                 <li className="nav-item"> 
-                                    <Link className="nav-link p-lg-3" to="#">Locations</Link> 
+                                    <Link className="nav-link p-lg-3" to="/">Offers</Link> 
                                 </li>
                                 <li className="nav-item"> 
-                                    <Link className="nav-link p-lg-3" to="#">Our Fleet</Link> 
+                                    <Link className="nav-link p-lg-3" to="/">Locations</Link> 
                                 </li>
                                 <li className="nav-item"> 
-                                    <Link className="nav-link p-lg-3" to="#">Support</Link> 
+                                    <Link className="nav-link p-lg-3" to="/">Our Fleet</Link> 
+                                </li>
+                                <li className="nav-item"> 
+                                    <Link className="nav-link p-lg-3" to="/">Support</Link> 
                                 </li>
                             </ul>
                             <div className="d-flex flex-wrap gap-2 py-1"> 
