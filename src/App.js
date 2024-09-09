@@ -7,6 +7,8 @@ import Login from './Login';
 import Menu from './menu';
 import Search from './Search';
 import RentOrder from './rentOrder';
+import UpdateInfo from './UpdateInfo';
+import Membership from './Membership';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.rtl.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -47,7 +49,9 @@ function App() {
           <Route path="index" element={<MainContent />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/search" element={<Search />} />
-          <Route path="/rentOrder" element={<RentOrder />} /> 
+          <Route path="/rentOrder" element={<RentOrder />} />
+          <Route path="/updateinfo" element={<UpdateInfo />} />
+          <Route path="/membership" element={<Membership />} /> 
           {/* Add more routes as needed */}
         </Routes>
       </Router>

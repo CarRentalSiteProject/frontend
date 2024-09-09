@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function SignUpForm() {
     const [formData, setFormData] = useState({
@@ -13,6 +14,8 @@ function SignUpForm() {
         address: '',
         licenseNub: ''
     });
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -32,35 +35,45 @@ function SignUpForm() {
 
     const validateForm = (event) => {
         event.preventDefault();
-    
+
+        // 檢查是否有未填寫的欄位
+        for (const field in formData) {
+            if (!formData[field]) {
+                let fieldName = field === 'licenseNub' ? 'License Number' : field; // 如果是 licenseNub，就顯示 License Number
+                alert(`${fieldName} 不得為空`);
+                return;
+            }
+        }
+
+        // 檢查密碼和確認密碼是否一致
+        if (formData.password !== formData.confirmPassword) {
+            alert('密碼不一致');
+            return; // 停止表單提交
+        }
+
         // 準備要發送的數據
-        const formData = new URLSearchParams({
-            name: event.target.name.value,
-            age: event.target.age.value,
-            gender: event.target.gender.value,
-            phone: event.target.phone.value,
-            email: event.target.email.value,
-            password: event.target.password.value,
-            confirmPassword: event.target.confirmPassword.value,
-            address: event.target.address.value,
-            licenseNub: event.target.licenseNub.value
-        });
+        const dataToSend = new URLSearchParams(formData);
     
-        console.log('Form Data:', formData.toString()); // 打印表單數據
+        console.log('Form Data:', dataToSend.toString()); // 打印表單數據
     
-        axios.post('http://localhost:8080/signup', formData, {
+        axios.post('http://localhost:8080/signup', dataToSend, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         })
         .then(response => {
             console.log('Response:', response.data);
+            alert('帳號註冊成功');
+            navigate('/login'); // 成功後跳轉到登錄頁面
         })
         .catch(error => {
-            console.error('There was an error!', error);
+            if (error.response && error.response.status === 400) {
+                alert(error.response.data.error || "帳號已註冊!");
+            } else {
+                console.error('There was an error!', error);
+            }
         });
     };
-    
 
     return (
         <section className="bg-secondary pb-5 position-relative poster pt-5 text-white-50">
@@ -87,7 +100,7 @@ function SignUpForm() {
                                     <div className="col-6">
                                         <label className="text-primary">Age: </label>
                                         <input
-                                            type="text"
+                                            type="number"
                                             className="form-control pb-2 pe-3 ps-3 pt-2 rounded-0"
                                             name="age"
                                             value={formData.age}
