@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, useLocation  } from 'react-router-dom';
-import Search from './Search';
+import { useNavigate  } from 'react-router-dom';
 
 function SearchEmbeded() {
     const [chplace, setChplace] = useState('');
@@ -12,13 +11,14 @@ function SearchEmbeded() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/carrent/searchPlace', {
-                chplace,
-                chdate,
-                redate
-            });
-            console.log('API Response:', response.data);
-            navigate('search', { state: { cars: response.data, chdate, redate } });
+            navigate(`/search?place=${chplace}&start=${chdate}&end=${redate}`);
+            // const response = await axios.post('http://localhost:8080/carrent/searchPlace', {
+            //     chplace,
+            //     chdate,
+            //     redate
+            // });
+            // console.log('API Response:', response.data);
+            // navigate('/search', { state: { chplace, chdate, redate } });
         } catch (error) {
             console.error('Error submitting form:', error);
         }
@@ -43,21 +43,21 @@ function SearchEmbeded() {
                                                 onChange={(e) => setChplace(e.target.value)}
                                                 required
                                             >
-                                                <option value="">請選擇縣市</option>
-                                                <option value="Taipei">台北</option>
-                                                <option value="NewTaipei">新北</option>
-                                                <option value="Keelung">基隆</option>
-                                                <option value="Taoyuan">桃園</option>
-                                                <option value="Hsinchu">新竹</option>
-                                                <option value="Taichung">台中</option>
-                                                <option value="Changhua">彰化</option>
-                                                <option value="Yunlin">雲林</option>
-                                                <option value="Chiayi">嘉義</option>
-                                                <option value="Tainan">台南</option>
-                                                <option value="Kaohsiung">高雄</option>
-                                                <option value="Pingtung">屏東</option>
-                                                <option value="Hualien">花蓮</option>
-                                                <option value="Taitung">台東</option>
+                                                <option value="">Locations</option>
+                                                <option value="Taipei">Taipei</option>
+                                                <option value="NewTaipei">NewTaipei</option>
+                                                <option value="Keelung">Keelung</option>
+                                                <option value="Taoyuan">Taoyuan</option>
+                                                <option value="Hsinchu">Hsinchu</option>
+                                                <option value="Taichung">Taichung</option>
+                                                <option value="Changhua">Changhua</option>
+                                                <option value="Yunlin">Yunlin</option>
+                                                <option value="Chiayi">Changhua</option>
+                                                <option value="Tainan">Tainan</option>
+                                                <option value="Kaohsiung">Kaohsiung</option>
+                                                <option value="Pingtung">Pingtung</option>
+                                                <option value="Hualien">Hualien</option>
+                                                <option value="Taitung">Taitung</option>
                                             </select>
                                         </div>
                                         <div className="col-sm-4"> 
@@ -79,7 +79,7 @@ function SearchEmbeded() {
                                             /> 
                                         </div>
                                         <div className="col-sm-auto text-end"> 
-                                            <button type="submit" className="btn btn-primary pb-2 pe-4 ps-4 pt-2">Search</button>                                             
+                                            <button type="submit" className="btn btn-primary pb-2 pe-4 ps-4 pt-2" onClick={handleSubmit}>Search</button>                                             
                                         </div>
                                     </div>                                     
                                 </form>

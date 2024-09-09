@@ -2,22 +2,32 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function SideBar() {
-    const [chplace, setChplace] = useState('');
-    const [chdate, setChdate] = useState('');
-    const [redate, setRedate] = useState('');
+function SideBar({startPlace, startDate, endDate}) {
+    // init chPlace with chPlace
+    const [chPlace, setChPlace] = useState(startPlace || ''); 
+    const [chdate, setChDate] = useState(startDate || '');
+    const [redate, setReDate] = useState(endDate || '');
     const navigate = useNavigate();
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8080/carrent/searchPlace', {
-                chplace,
+                chPlace,
                 chdate,
                 redate
             });
             console.log('API Response:', response.data);
-            navigate('/menu', { state: { cars: response.data, chdate, redate } });
+            navigate('/search', { state: { chPlace, chdate, redate } });
+
+            // const response = await axios.post('http://localhost:8080/carrent/searchPlace', {
+            //     chPlace,
+            //     chdate,
+            //     redate
+            // });
+            // console.log('API Response:', response.data);
+            // navigate(`/search?place=${chPlace}&start=${chdate}&end=${redate}`, { state: { cars: response.data } });
         } catch (error) {
             console.error('Error submitting form:', error);
         }
@@ -33,25 +43,25 @@ function SideBar() {
                             <div className="col-sm p-2"> 
                                 <select 
                                     className="form-control pb-2 pe-3 ps-3 pt-2 rounded-0" 
-                                    value={chplace} 
-                                    onChange={(e) => setChplace(e.target.value)}
+                                    value={chPlace} 
+                                    onChange={(e) => setChPlace(e.target.value)}
                                     required
                                 >
-                                    <option value="">請選擇縣市</option>
-                                    <option value="Taipei">台北</option>
-                                    <option value="NewTaipei">新北</option>
-                                    <option value="Keelung">基隆</option>
-                                    <option value="Taoyuan">桃園</option>
-                                    <option value="Hsinchu">新竹</option>
-                                    <option value="Taichung">台中</option>
-                                    <option value="Changhua">彰化</option>
-                                    <option value="Yunlin">雲林</option>
-                                    <option value="Chiayi">嘉義</option>
-                                    <option value="Tainan">台南</option>
-                                    <option value="Kaohsiung">高雄</option>
-                                    <option value="Pingtung">屏東</option>
-                                    <option value="Hualien">花蓮</option>
-                                    <option value="Taitung">台東</option>
+                                    <option value="">Locations</option>
+                                    <option value="Taipei">Taipei</option>
+                                    <option value="NewTaipei">NewTaipei</option>
+                                    <option value="Keelung">Keelung</option>
+                                    <option value="Taoyuan">Taoyuan</option>
+                                    <option value="Hsinchu">Hsinchu</option>
+                                    <option value="Taichung">Taichung</option>
+                                    <option value="Changhua">Changhua</option>
+                                    <option value="Yunlin">Yunlin</option>
+                                    <option value="Chiayi">Changhua</option>
+                                    <option value="Tainan">Tainan</option>
+                                    <option value="Kaohsiung">Kaohsiung</option>
+                                    <option value="Pingtung">Pingtung</option>
+                                    <option value="Hualien">Hualien</option>
+                                    <option value="Taitung">Taitung</option>
                                 </select>
                             </div>
                             <div className="col-sm p-2"> 
@@ -59,7 +69,7 @@ function SideBar() {
                                     type="date" 
                                     className="form-control pb-2 pe-3 ps-3 pt-2 rounded-0"
                                     value={chdate}
-                                    onChange={(e) => setChdate(e.target.value)}
+                                    onChange={(e) => setChDate(e.target.value)}
                                     required
                                 /> 
                             </div>
@@ -68,7 +78,7 @@ function SideBar() {
                                     type="date" 
                                     className="form-control pb-2 pe-3 ps-3 pt-2 rounded-0"
                                     value={redate}
-                                    onChange={(e) => setRedate(e.target.value)}
+                                    onChange={(e) => setReDate(e.target.value)}
                                     required
                                 /> 
                             </div>
@@ -100,36 +110,6 @@ function SideBar() {
                             </div>
                         </div>
                         <div className="align-items-center gx-2 gy-3">
-                            <div className="col-sm p-2"> 
-                                <label className="h6 mb-3 pt-1 pb-3 border-bottom fw-bold text-dark">Brands</label>
-                                <input 
-                                    type="date" 
-                                    className="form-control pb-2 pe-3 ps-3 pt-2 rounded-0"
-                                    value={chdate}
-                                    onChange={(e) => setChdate(e.target.value)}
-                                    required
-                                /> 
-                            </div>
-                            <div className="col-sm p-2">
-                                <label className="h6 mb-3 pt-1 pb-3 border-bottom fw-bold text-dark">Price</label>
-                                <input 
-                                    type="date" 
-                                    className="form-control pb-2 pe-3 ps-3 pt-2 rounded-0"
-                                    value={redate}
-                                    onChange={(e) => setRedate(e.target.value)}
-                                    required
-                                /> 
-                            </div>
-                            <div className="col-sm p-2">
-                                <label className="h6 mb-3 pt-1 pb-3 border-bottom fw-bold text-dark">Passengers</label>
-                                <input 
-                                    type="date" 
-                                    className="form-control pb-2 pe-3 ps-3 pt-2 rounded-0"
-                                    value={redate}
-                                    onChange={(e) => setRedate(e.target.value)}
-                                    required
-                                /> 
-                            </div>
                             <div className="col-sm p-2">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
@@ -158,19 +138,13 @@ function SideBar() {
                                     type="date" 
                                     className="form-control pb-2 pe-3 ps-3 pt-2 rounded-0"
                                     value={chdate}
-                                    onChange={(e) => setChdate(e.target.value)}
+                                    onChange={(e) => setChDate(e.target.value)}
                                     required
                                 /> 
                             </div>
                             <div className="col-sm p-2">
-                                <label className="h6 mb-3 pt-1 pb-3 border-bottom fw-bold text-dark">Price</label>
-                                <input 
-                                    type="date" 
-                                    className="form-control pb-2 pe-3 ps-3 pt-2 rounded-0"
-                                    value={redate}
-                                    onChange={(e) => setRedate(e.target.value)}
-                                    required
-                                /> 
+                                <label for="priceRange" className="h6 mb-3 pt-1 pb-3 border-bottom fw-bold form-label text-dark">Price</label>
+                                <input type="range" class="form-range" min="0" max="5" step="0.5" id="priceRange" />
                             </div>
                             <div className="col-sm p-2">
                                 <label className="h6 mb-3 pt-1 pb-3 border-bottom fw-bold text-dark">Passengers</label>
@@ -178,7 +152,7 @@ function SideBar() {
                                     type="date" 
                                     className="form-control pb-2 pe-3 ps-3 pt-2 rounded-0"
                                     value={redate}
-                                    onChange={(e) => setRedate(e.target.value)}
+                                    onChange={(e) => setReDate(e.target.value)}
                                     required
                                 /> 
                             </div>

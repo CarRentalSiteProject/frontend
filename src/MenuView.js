@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function MenuView() {
-    // const location = useLocation();
-    // const navigate = useNavigate();
-    // const { cars, chdate, redate } = location.state;
-    // const [selectedCar, setSelectedCar] = useState('');
+function MenuView({cars}) {
+    const location = useLocation();
+    const navigate = useNavigate();
+    // since location is not iterable, it should be declare by special way
+    const { chplace, chdate, redate } = location.state || {}; // Add fallback to avoid undefined errors
+    const [selectedCar, setSelectedCar] = useState('');
 
     // const handleSubmit = async (e) => {
     //     e.preventDefault();
@@ -36,17 +37,35 @@ function MenuView() {
         <div className="container pb-5">
             <h1>Available Cars</h1>
             <form onSubmit>
+                {/* <div className="g-4 justify-content-center mt-2 mb-3 row row-cols-lg-3 row-cols-md-2">
+                    {cars && cars.length > 0 ? (
+                        cars.map((car) => (
+                            <div key={car.Car_ID}>
+                                <div className="bg-white border shadow-sm">
+                                <img src="https://images.unsplash.com/photo-1554666869-04dafcdc7a48?ixid=MnwyMDkyMnwwfDF8c2VhcmNofDQxN3x8Y2FyJTIwc3V2fGVufDB8fHx8MTYzMTY4NTkwNg&ixlib=rb-1.2.1q=85&fm=jpg&crop=faces&cs=srgb&w=600&h=450&fit=crop" className="img-fluid w-100" alt={car.CarType} width="600" height="450"/>
+                                    <div className="p-4">
+                                        <h4 className="fw-bold h5">{car.CarType}</h4>
+                                        <p className="small">description</p>
+                                        <span className="fw-bold pb-1 pt-1 text-dark">${car.Price}/day</span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No cars available.</p>
+                    )}
+                </div> */}
                 <div className="g-4 justify-content-center mt-2 mb-3 row row-cols-lg-3 row-cols-md-2">
                     <div> 
                         <div className="bg-white border shadow-sm"> 
-                            <a href="#"><img src="https://images.unsplash.com/photo-1575090536203-2a6193126514?ixid=MnwyMDkyMnwwfDF8c2VhcmNofDN8fGh5dW5kYWl8ZW58MHx8fHwxNjMxNjk3ODI1&ixlib=rb-1.2.1q=85&fm=jpg&crop=faces&cs=srgb&w=600&h=450&fit=crop" className="img-fluid w-100" alt="..." width="600" height="450"/></a>
+                            <a href="#"><img src="https://images.unsplash.com/photo-1554666869-04dafcdc7a48?ixid=MnwyMDkyMnwwfDF8c2VhcmNofDQxN3x8Y2FyJTIwc3V2fGVufDB8fHx8MTYzMTY4NTkwNg&ixlib=rb-1.2.1q=85&fm=jpg&crop=faces&cs=srgb&w=600&h=450&fit=crop" className="img-fluid w-100" alt="..." width="600" height="450"/></a>
                             <div className="p-4">
-                                <h4 className="fw-bold h5"><a href="" className="link-secondary text-decoration-none">Hyundai Creta 2017</a></h4>
+                                <h4 className="fw-bold h5"><a href="" className="link-secondary text-decoration-none">BMW M3 2010</a></h4>
                                 <p className="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                <hr style={{zIndex: 0}}/>
+                                <hr />
                                 <div className="align-items-center d-flex justify-content-between">
                                     <div className="align-items-center d-inline-flex gap-1 pb-1 pt-1">
-                                        <span>4.7</span>
+                                        <span>4.9</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="1.125em" height="1.125em" className="text-primary">
                                             <g>
                                                 <path fill="none" d="M0 0h24v24H0z"></path>
@@ -54,7 +73,7 @@ function MenuView() {
                                             </g>
                                         </svg>
                                     </div>
-                                    <span className="fw-bold pb-1 pt-1 text-dark">$40/day</span>
+                                    <span className="fw-bold pb-1 pt-1 text-dark">$2500/day</span>
                                 </div>
                             </div>                                 
                         </div>

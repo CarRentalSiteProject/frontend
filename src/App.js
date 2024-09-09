@@ -13,6 +13,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '@popperjs/core';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Footer from './Footer';
+import Fleets from './Fleets';
 
 function App() {
   const [error, setError] = useState(null);
@@ -48,6 +49,7 @@ function App() {
           <Route path="index" element={<MainContent />} />
           <Route path="/search" element={<Search />} />
           <Route path="/rentOrder" element={<RentOrder />} /> 
+          <Route path="/fleets" element={<Fleets />} />
           {/* Add more routes as needed */}
         </Routes>
         <Footer />
