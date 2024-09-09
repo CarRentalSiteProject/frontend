@@ -13,32 +13,31 @@ function Search() {
     const startPlace = query.get(`place`);
     const startDate = query.get(`start`);
     const endDate = query.get(`end`);
-    const location = useLocation();
-    // since location is not iterable, it should be declare by special way
-    const { cars, chplace, chdate, redate } = location.state || {}; // Add fallback to avoid undefined errors
-
-    // const [chplace, setChplace] = useState('');
-    // const [chdate, setChdate] = useState('');
-    // const [redate, setRedate] = useState('');
+    const [chplace, setChPlace] = useState(startPlace || ''); 
+    const [chdate, setChDate] = useState(startDate || '');
+    const [redate, setReDate] = useState(endDate || '');
+    const [cars, setCars] = useState([]);  // State to store fetched car data
     // const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     // send params to the backend when the component mounts
-    //     const postSearchData = async () => {
-    //         try {
-    //             const response = await axios.post('http://localhost:8080/carrent/searchPlace', {
-    //                 chplace,
-    //                 chdate,
-    //                 redate
-    //             });
-    //             console.log('API Response:', response.data);
-    //         } catch (error) {
-    //             console.error('Error searching for cars:', error);
-    //         }
-    //     };
+    console.log("Search,");
 
-    //     postSearchData();
-    //     }, [chplace, chdate, redate]);
+    useEffect(() => {
+        // send params to the backend when the component mounts
+        const postSearchData = async () => {
+            try {
+                const response = await axios.post('http://localhost:8080/carrent/searchPlace', {
+                    chplace,
+                    chdate,
+                    redate
+                });
+                console.log('API Response:', response.data);
+                setCars(response.data);  // Save the fetched cars data
+            } catch (error) {
+                console.error('Error searching for cars:', error);
+            }
+        };
+        postSearchData();
+        }, [chplace, chdate, redate]);
 
     // const handleSubmit = async (e) => {
     //     e.preventDefault();
@@ -65,7 +64,7 @@ function Search() {
                             <SideBar startPlace={startPlace} startDate={startDate} endDate={endDate}/>
                         </div>
                         <div className="col-xl-7 col-lg-7">
-                            <MenuView />
+                            <MenuView cars={cars}/>
                         </div>
                     </div>
                 </div>

@@ -4,30 +4,24 @@ import { useNavigate } from 'react-router-dom';
 
 function SideBar({startPlace, startDate, endDate}) {
     // init chPlace with chPlace
-    const [chPlace, setChPlace] = useState(startPlace || ''); 
+    const [chplace, setChPlace] = useState(startPlace || ''); 
     const [chdate, setChDate] = useState(startDate || '');
     const [redate, setReDate] = useState(endDate || '');
     const navigate = useNavigate();
-    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/carrent/searchPlace', {
-                chPlace,
-                chdate,
-                redate
-            });
-            console.log('API Response:', response.data);
-            navigate('/search', { state: { chPlace, chdate, redate } });
+            console.log("SideBar, " + { chplace, chdate, redate });
 
             // const response = await axios.post('http://localhost:8080/carrent/searchPlace', {
-            //     chPlace,
+            //     chplace,
             //     chdate,
             //     redate
             // });
+            
             // console.log('API Response:', response.data);
-            // navigate(`/search?place=${chPlace}&start=${chdate}&end=${redate}`, { state: { cars: response.data } });
+            navigate(`/search?place=${chplace}&start=${chdate}&end=${redate}`);
         } catch (error) {
             console.error('Error submitting form:', error);
         }
@@ -43,7 +37,7 @@ function SideBar({startPlace, startDate, endDate}) {
                             <div className="col-sm p-2"> 
                                 <select 
                                     className="form-control pb-2 pe-3 ps-3 pt-2 rounded-0" 
-                                    value={chPlace} 
+                                    value={chplace} 
                                     onChange={(e) => setChPlace(e.target.value)}
                                     required
                                 >
