@@ -36,10 +36,13 @@ function Header() {
                                 <li className="nav-item"> 
                                     <Link className="nav-link p-lg-3" to="/">Support</Link> 
                                 </li>
+                                <li className="nav-item"> 
+                                    <Link to="/membership" className="nav-link p-lg-3" >Membership</Link> 
+                                </li>
                             </ul>
                             <div className="d-flex flex-wrap gap-2 py-1"> 
                                 <Link to="/login" className="btn btn-outline-primary pe-4 ps-4">Log In</Link> 
-                                <Link to="#" className="btn btn-outline-primary pe-4 ps-4">Sign up</Link>
+                                <Link to="/signup" className="btn btn-outline-primary pe-4 ps-4">Sign up</Link>
                             </div>                         
                         </div>                     
                     </div>                 
