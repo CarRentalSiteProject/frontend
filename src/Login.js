@@ -1,7 +1,6 @@
 import Footer from './Footer';
 import axios from 'axios';
 import { useState } from 'react';
-import Header from './Header';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
@@ -27,8 +26,8 @@ function Login() {
       }
     } catch (error) {
       console.error('Error:', error);
-      setMes('伺服器錯誤');
-      alert('伺服器錯誤'); // 顯示彈出視窗
+      setMes('Server Error');
+      alert('Server Error'); // 顯示彈出視窗
     }
   };
 
@@ -61,7 +60,7 @@ function Login() {
                       <button type="submit" name="login" value="login" className="btn btn-primary btn-block">Log in</button>
                     </div>
                     <div className="form-group text-center">
-                      New friend?<Link to="/">Sign up</Link>
+                      New friend?<Link to="/signup">Sign up</Link>
                     </div>
                   </form>
                 </div>
