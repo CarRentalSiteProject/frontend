@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { login as apiLogin } from './api';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Footer from './Footer';
 
 
@@ -61,7 +60,7 @@ const Login = () => {
                       <button type="submit" name="login" value="login" className="btn btn-primary btn-block">Log in</button>
                     </div>
                     <div className="form-group text-center">
-                      New friend?<Link to="/">Sign up</Link>
+                      New friend?<Link to="/signup">Sign up</Link>
                     </div>
                   </form>
                 </div>
