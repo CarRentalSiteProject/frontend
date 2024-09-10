@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
 
 function Footer() {
     return (
@@ -8,7 +7,7 @@ function Footer() {
                 <div className="container"> 
                     <div className="row"> 
                         <div className="col-lg-4 py-3"> 
-                            <Link className="align-items-center d-inline-flex fw-bold gap-2 h3 lh-1 link-primary mb-3 text-decoration-none text-uppercase" href="/">
+                            <a className="align-items-center d-inline-flex fw-bold gap-2 h3 lh-1 link-primary mb-3 text-decoration-none text-uppercase" href="#">
                                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="3em" xmlSpace="preserve" viewBox="0 0 100 100" height="3em" className="me-1" fill="currentColor">
                                     <path d="M38.333 80a11.571 11.571 0 0 1-7.646-2.883A11.724 11.724 0 0 1 26.834 70H10V46.667L43.333 40l20-20H90v26.667H43.995l-27.328 5.465v11.2h11.166a11.787 11.787 0 0 1 4.212-4.807 11.563 11.563 0 0 1 12.577 0 11.789 11.789 0 0 1 4.213 4.807h7.833V70h-6.837a11.719 11.719 0 0 1-3.853 7.117A11.571 11.571 0 0 1 38.333 80Zm0-16.667a5 5 0 1 0 5 5 5.006 5.006 0 0 0-5.001-5Zm27.761-36.666L52.762 40h30.571V26.667Z"/>
                                     <path d="M56.667 63.333h-7.833a11.6 11.6 0 0 0-21 0H16.667v-11.2l27.328-5.465h12.672Z" opacity="0.2"/>
@@ -16,7 +15,7 @@ function Footer() {
                                     <path d="M52.762 40h30.571V26.667H66.094Z" opacity="0.2"/>
                                 </svg>
                                 <span>Prime Drive</span>
-                            </Link> 
+                            </a> 
                             <ul className="list-unstyled">
                                 <li className="mb-1">9056 Fairground Ave., New York, USA</li>
                                 <li className="mb-1">

@@ -1,37 +1,51 @@
+import React, { useState } from 'react';
+import { login as apiLogin } from './api';
+import { useNavigate, Link } from 'react-router-dom';
 import Footer from './Footer';
-import axios from 'axios';
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 
-function Login() {
+
+// 定義 Login 組件
+const Login = () => {
+  // 使用 useState 鉤子來管理用戶名、密碼和錯誤狀態
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [mes, setMes] = useState('');
-  const navigate = useNavigate(); // 使用 useNavigate 來進行頁面跳轉
+  const [error, setError] = useState('');
+  
+  // 使用 useNavigate 鉤子來進行頁面導航
+  const navigate = useNavigate();
+  
 
-  const handleSubmit = async (e) => {
+
+  // 處理登錄表單提交的函數
+  const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/api/login', {
-        name: username,
-        password: password
-      });
 
-      if (response.data.success) {
-        // 成功處理
-        localStorage.setItem('memberInfo', JSON.stringify(response.data)); // 保存會員資訊到 localStorage
-        navigate('/'); // 使用 useNavigate 來跳轉首頁
-      } else {
-        setMes(response.data.message);
-        alert(response.data.message); // 顯示彈出視窗
+      // const response = await axios.post('http://localhost:8080/api/login', {
+      //   name: username,
+      //   password: password
+      // });
+
+      // if (response.data.success) {
+      //   // 成功處理
+      //   localStorage.setItem('memberInfo', JSON.stringify(response.data)); // 保存會員資訊到 localStorage
+      //   navigate('/'); // 使用 useNavigate 來跳轉首頁
+      // } else {
+      //   setMes(response.data.message);
+      //   alert(response.data.message); // 顯示彈出視窗
+
+      const userData = await apiLogin(username, password);
+      if (userData) {
+        navigate('/');
+
       }
     } catch (error) {
-      console.error('Error:', error);
-      setMes('Server Error');
-      alert('Server Error'); // 顯示彈出視窗
+      setError('登入失敗: ' + (error.response?.data || error.message));
     }
   };
+  
 
+  // 渲染登錄表單
   return (
     <div className="text-muted">
       <main>
@@ -41,8 +55,8 @@ function Login() {
             <div className="col-md-6 col-lg-4">
               <div className="mt-5 pt-5 row">
                 <div className="login-form">
-                  {mes && <div className="alert alert-danger">{mes}</div>}
-                  <form onSubmit={handleSubmit}>
+                  {error && <div className="alert alert-danger">{error}</div>}
+                  <form onSubmit={handleLogin}>
                     <h1 className="display-3 fw-bold mb-4 text-white">
                       <span className="text-primary">Log in</span>
                     </h1>
