@@ -1,0 +1,187 @@
+*   commit 0cf42a96f26816f7e5c44e98d50db08e9d2c0372
+|\  Merge: 4fdeb57 1fc9c51
+| | Author: Rex06020 <56222959+Rex06020@users.noreply.github.com>
+| | Date:   Tue Sep 10 11:47:25 2024 +0800
+| | 
+| |     Merge branch 'develop-frontend' of https://github.com/CarRentalSiteProject/CarRentalSiteProject into develop-frontend
+| | 
+| * commit 1fc9c519b5d36bab2af19aa81559e795e3d3b244
+| | Author: Feng <a28484038@gmail.com>
+| | Date:   Tue Sep 10 09:51:01 2024 +0800
+| | 
+| |     renew Header、Login、Footer
+| | 
+* | commit 4fdeb57b458b82dcc9a5c68f8923438fcc673a5d
+|/  Author: Rex06020 <56222959+Rex06020@users.noreply.github.com>
+|   Date:   Tue Sep 10 11:47:19 2024 +0800
+|   
+|       feat:fix the problem that allowing both SearchEmbeded and SideBar
+|   
+*   commit ae0ef95b0f584e19fc97dbd66092b28791baf42b
+|\  Merge: 31a130a d2fe380
+| | Author: Rex06020 <56222959+Rex06020@users.noreply.github.com>
+| | Date:   Mon Sep 9 16:19:15 2024 +0800
+| | 
+| |     Merge branch 'develop-frontend' of https://github.com/CarRentalSiteProject/CarRentalSiteProject into develop-frontend
+| | 
+| * commit d2fe3804628bde3a9aaa23ea63cfda824a676d2f
+| | Author: SharonC312 <a29192140@gmail.com>
+| | Date:   Mon Sep 9 11:04:56 2024 +0800
+| | 
+| |     feat Membership, signupForm
+| | 
+* | commit 31a130abf6a399aae2cf243b56251d457cfd84ea
+| | Author: Rex06020 <56222959+Rex06020@users.noreply.github.com>
+| | Date:   Mon Sep 9 16:16:18 2024 +0800
+| | 
+| |     feat: let menuview show multi cars' cards
+| | 
+* | commit 95174d0682438a8d2b405eb374efac303b5ad0f6
+| | Author: Rex06020 <56222959+Rex06020@users.noreply.github.com>
+| | Date:   Mon Sep 9 15:16:35 2024 +0800
+| | 
+| |     feat: SideBar can get place and date from search and show in inputs
+| | 
+* | commit 3f7008b15a4611e8c9287eec98bd5cac7f2791a3
+| | Author: Rex06020 <56222959+Rex06020@users.noreply.github.com>
+| | Date:   Sat Sep 7 14:55:54 2024 +0800
+| | 
+| |     feat: seach page layout
+| | 
+* | commit 0ee8dd6e536dedb9eaf84e7b31483bdda3e62121
+|/  Author: Rex06020 <56222959+Rex06020@users.noreply.github.com>
+|   Date:   Thu Sep 5 15:19:18 2024 +0800
+|   
+|       feat: pull develop-frontend to rex's local
+| 
+* commit 77ef6064360c6a036f3c591227ade8b54d8cbd77
+| Author: Feng <a28484038@gmail.com>
+| Date:   Wed Sep 4 20:46:56 2024 +0800
+| 
+|     更新Comments
+| 
+* commit 5d009b767cfeb264b7ed8df9a19f7756bb4cb777
+| Author: Rex06020 <56222959+Rex06020@users.noreply.github.com>
+| Date:   Wed Sep 4 16:01:42 2024 +0800
+| 
+|     replace react-spring-boot with merger of candy's james' sharon's frontend
+|   
+*   commit de4c484dc5cc5453a715c86074b6756108d5263e
+|\  Merge: 62c530b 121f800
+| | Author: Rex06020 <56222959+Rex06020@users.noreply.github.com>
+| | Date:   Wed Sep 4 15:58:57 2024 +0800
+| | 
+| |     feat: pull react-spring-boot to rex's local
+| | 
+| * commit 121f800b5d8650cbcc92a353b3078724557e9990
+| | Author: Rex06020 <56222959+Rex06020@users.noreply.github.com>
+| | Date:   Wed Aug 28 12:01:06 2024 +0800
+| | 
+| |     feat: all function components divided. css turned out well.
+| | 
+| * commit 3b0e029d07dd56eca1ef48e276f6f4b896387a4b
+| | Author: Rex06020 <56222959+Rex06020@users.noreply.github.com>
+| | Date:   Wed Aug 28 00:13:42 2024 +0800
+| | 
+| |     feat: put files into styles and assets folders. seperate index.html from template into several react function components.
+| | 
+| * commit fc3825f2e81790080cd41df75910bb8618ef2f02
+|   Author: Rex06020 <56222959+Rex06020@users.noreply.github.com>
+|   Date:   Mon Aug 26 11:05:57 2024 +0800
+|   
+|       Initialize project using Create React App
+|   
+*   commit 62c530b5667181707d1b25b3fb2cc5d6d362a164
+|\  Merge: 885ad46 c460a78
+| | Author: Rex06020 <56222959+Rex06020@users.noreply.github.com>
+| | Date:   Thu Aug 15 15:23:10 2024 +0800
+| | 
+| |     Merge pull request #16 from SpearRMF/James
+| |     
+| |     feat: check DataBaseConnet at TOMCAT
+| | 
+| * commit c460a7859d6b5d3b8b28216436694aafe15f6993
+| | Author: RMF <chase21625@gmail.com>
+| | Date:   Thu Aug 15 13:17:50 2024 +0800
+| | 
+| |     feat: check DataBaseConnet at TOMCAT
+| |   
+* |   commit 885ad46c5980d57435aebdb400f6a1c200e65f36
+|\ \  Merge: 3f2e06f c98be22
+| |/  Author: Rex06020 <56222959+Rex06020@users.noreply.github.com>
+|/|   Date:   Tue Aug 13 10:06:27 2024 +0800
+| |   
+| |       feat: add the files that behind main
+| |   
+| *   commit c98be2218387885a62729f02ba51067f0227ef2b
+| |\  Merge: b0eff49 0d76b56
+| | | Author: Rex06020 <56222959+Rex06020@users.noreply.github.com>
+| | | Date:   Mon Aug 12 20:29:47 2024 +0800
+| | | 
+| | |     Merge pull request #14 from Rex06020/sharon
+| | |     
+| | |     Sharon
+| | | 
+| | * commit 0d76b56e62abae816850614954f0bd80649d9175
+| | | Author: SharonC312 <a29192140@gmail.com>
+| | | Date:   Wed Aug 7 16:29:36 2024 +0800
+| | | 
+| | |     add js file
+| | | 
+| | * commit ab7169fdb917190877420ac9537e628853bdce58
+| | | Author: SharonC312 <a29192140@gmail.com>
+| | | Date:   Wed Aug 7 15:32:59 2024 +0800
+| | | 
+| | |     signup html
+| | |   
+| * |   commit b0eff4936536038692467bed6a4090c502b0ed2e
+| |\ \  Merge: db50e95 9c42866
+| | |/  Author: Rex06020 <56222959+Rex06020@users.noreply.github.com>
+| |/|   Date:   Mon Aug 12 20:28:54 2024 +0800
+| | |   
+| | |       Merge pull request #13 from Rex06020/Candy
+| | |       
+| | |       Candy
+| | | 
+| | * commit 9c42866547135d9de3ce1f1a358dc0201006ec01
+| | | Author: Feng <a28484038@gmail.com>
+| | | Date:   Wed Aug 7 16:24:52 2024 +0800
+| | | 
+| | |     feat:revis login.html & add login.js
+| | | 
+| | * commit 3301d2fed7d0f189fc09cbb5ee37974d5ea74a62
+| |/  Author: Feng <a28484038@gmail.com>
+| |   Date:   Wed Aug 7 15:53:21 2024 +0800
+| |   
+| |       feat: add login.html
+| | 
+* | commit 3f2e06f715337a8d2197c40274f4602299ad8e28
+|/  Author: 羅弘翔 <rex843729598@gmail.com>
+|   Date:   Mon Aug 12 15:27:56 2024 +0800
+|   
+|       feat: build SpringMVC & put frontend files into webapp/ & change index.html to index.jsp & showed up successfully
+| 
+* commit db50e95542fd0361503b1a2a68bd421e5f592dd7
+| Author: 羅弘翔 <rex843729598@gmail.com>
+| Date:   Fri Aug 2 20:04:56 2024 +0800
+| 
+|     docs: integration of car rental sites' features
+|   
+*   commit 8e3a837b9131dc6bbe99cabcccd79f4b4d37110b
+|\  Merge: 5d74532 a23531e
+| | Author: 羅弘翔 <rex843729598@gmail.com>
+| | Date:   Fri Aug 2 16:20:06 2024 +0800
+| | 
+| |     Merge remote-tracking branch 'remotes/origin/master'
+| | 
+| * commit a23531ef1e31c4a745cf653fc665b8ddb953f0ff
+|   Author: Brian <java202406@gmail.com>
+|   Date:   Fri Aug 2 15:22:14 2024 +0800
+|   
+|       樣板
+| 
+* commit 5d745320ab80bf517903305f443284054ca2dde3
+  Author: Rex06020 <56222959+Rex06020@users.noreply.github.com>
+  Date:   Fri Aug 2 14:08:31 2024 +0800
+  
+      Initial commit

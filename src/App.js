@@ -23,6 +23,19 @@ function App() {
   // const baseUrl = "http://localhost:8080/carrent/test_api";
 
   useEffect(() => {
+    const observer = new MutationObserver(() => {
+        const unwantedElement = document.getElementById('vidline-ext-0.1.43');
+        if (unwantedElement) {
+            unwantedElement.remove();
+        }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => observer.disconnect();
+}, []);
+
+  useEffect(() => {
     axios.get(baseUrl)
       .then((response) => {
         console.log(response);
