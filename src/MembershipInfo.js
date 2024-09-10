@@ -1,18 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function MembershipInfo() {
     const [memberInfo, setMemberInfo] = useState(null);
     const navigate = useNavigate();
+
+    // 在後端 API 請求成功後存儲資料到 localStorage
+    const handleFetchMemberInfo = async () => {
+        try {
+            const response = await axios.get('/membership');
+            console.log('API Response:', response.data); // 檢查 API 回應
+            if (response.status === 200) {
+                const memberData = response.data.memberInfo; // 提取 memberInfo
+                localStorage.setItem('memberInfo', JSON.stringify(memberData));
+                setMemberInfo(memberData); // 設置 state 以更新界面
+            }
+        } catch (error) {
+            console.error('Error fetching member info:', error);
+        }
+    };
+    
 
     useEffect(() => {
         const info = localStorage.getItem('memberInfo');
         if (info) {
             setMemberInfo(JSON.parse(info));
         } else {
-            navigate('/login'); // 如果沒有會員資訊，重定向到登入頁面
+            handleFetchMemberInfo(); // 沒有會員資訊時調用 API 獲取
         }
-    }, [navigate]);
+    }, []);
+
+    console.log('Current Member Info:', memberInfo); // 檢查當前會員資料
 
     return (
         <section className="bg-secondary pb-5 position-relative poster pt-5 text-white-50">
@@ -32,7 +51,7 @@ function MembershipInfo() {
                                                 type="text"
                                                 className="form-control"
                                                 name="name"
-                                                value={memberInfo.name}
+                                                value={memberInfo.name || ''}
                                                 readOnly
                                             />
                                         </div>
@@ -42,7 +61,7 @@ function MembershipInfo() {
                                                 type="text"
                                                 className="form-control"
                                                 name="age"
-                                                value={memberInfo.age}
+                                                value={memberInfo.age || ''}
                                                 readOnly
                                             />
                                         </div>
@@ -52,7 +71,7 @@ function MembershipInfo() {
                                                 type="text"
                                                 className="form-control"
                                                 name="gender"
-                                                value={memberInfo.gender}
+                                                value={memberInfo.gender || ''}
                                                 readOnly
                                             />
                                         </div>
@@ -62,7 +81,7 @@ function MembershipInfo() {
                                                 type="text"
                                                 className="form-control"
                                                 name="address"
-                                                value={memberInfo.address}
+                                                value={memberInfo.address || ''}
                                                 readOnly
                                             />
                                         </div>
