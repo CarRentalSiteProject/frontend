@@ -1,7 +1,23 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Header() {
+    const memberID="2";
+    const navigate = useNavigate();
+    const handleIdClick = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:8080/carrent/forOrder', {
+                memberID
+            });
+            console.log('API Response:', response.data);
+            navigate('/forOrder', { state: { mbID: response.data } });
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
+    };
     return (
         <div>
             <header className="bg-dark">
@@ -40,6 +56,11 @@ function Header() {
                                     <Link to="/membership" className="nav-link p-lg-3" >Membership</Link> 
                                 </li>
                             </ul>
+                            <div className="d-flex flex-wrap gap-2 py-1"> 
+                                <a href="#" className="btn btn-outline-primary pe-4 ps-4"
+                                onClick={handleIdClick}
+                                >Order</a>
+                            </div>
                             <div className="d-flex flex-wrap gap-2 py-1"> 
                                 <Link to="/login" className="btn btn-outline-primary pe-4 ps-4">Log In</Link> 
                                 <Link to="/signup" className="btn btn-outline-primary pe-4 ps-4">Sign up</Link>

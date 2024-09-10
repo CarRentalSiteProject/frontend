@@ -13,6 +13,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.rtl.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '@popperjs/core';
+import PaymentResultPage from './paymentResultPage';
+import PaymentResult from './paymentResult';
+import ForOrder from './forOrder';
+import ForOrderDetail from './forOderDetail';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Footer from './Footer';
 import Fleets from './Fleets';
@@ -54,6 +58,10 @@ function App() {
           <Route path="/fleets" element={<Fleets />} />
           <Route path="/updateinfo" element={<UpdateInfo />} />
           <Route path="/membership" element={<Membership />} /> 
+          <Route path="/carrent/paymentResultPage" element={<PaymentResultPage/>} />
+          <Route path="/carrent/paymentResult" element={<PaymentResult/>} />
+          <Route path="/forOrder" element={<ForOrder/>} />
+          <Route path="/forOrderDetail" element={<ForOrderDetail/>} />
           {/* Add more routes as needed */}
         </Routes>
         <Footer />
