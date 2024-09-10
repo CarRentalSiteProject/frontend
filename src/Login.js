@@ -20,6 +20,7 @@ function Login() {
 
       if (response.data.success) {
         // 成功處理
+        localStorage.setItem('memberInfo', JSON.stringify(response.data)); // 保存會員資訊到 localStorage
         navigate('/'); // 使用 useNavigate 來跳轉首頁
       } else {
         setMes(response.data.message);

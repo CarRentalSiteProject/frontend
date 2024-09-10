@@ -22,7 +22,7 @@ function Header() {
                         <div className="collapse navbar-collapse " id="navbarNavDropdown-2"> 
                             <ul className="me-auto navbar-nav"> 
                                 <li className="nav-item"> 
-                                    <Link className="nav-link p-lg-3" to="#">Home</Link> 
+                                    <Link className="nav-link p-lg-3" to="/">Home</Link> 
                                 </li>
                                 <li className="nav-item"> 
                                     <Link className="nav-link p-lg-3" to="#">Offers</Link> 
