@@ -7,7 +7,6 @@ function  Membership(){
     return (
         <div>
             <MembershipInfo />
-            <Footer />
         </div>
     );
 
