@@ -1,88 +1,143 @@
-import React, { useState } from 'react';
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
+// import { useNavigate, useLocation } from 'react-router-dom';
+// import SideBar from './SideBar';
+// import MenuView from './MenuView';
+
+// function useQuery() { // get params from main page
+//     return new URLSearchParams(useLocation().search);
+// }
+
+// function Search() {
+//     const query = useQuery();
+//     const startPlace = query.get(`place`);
+//     const startDate = query.get(`start`);
+//     const endDate = query.get(`end`);
+
+//     // State to store search parameters and fetched car data
+//     const [chplace, setChPlace] = useState(startPlace || ''); 
+//     const [chdate, setChDate] = useState(startDate || '');
+//     const [redate, setReDate] = useState(endDate || '');
+//     const [cars, setCars] = useState([]);  // State to store fetched car data
+//     // const navigate = useNavigate();
+
+//     console.log("Search,");
+
+//     // Function to handle the search triggered by SideBar.js
+//     const handleSearch = async (searchParams) => {
+//         const { chPlace, chdate, redate } = searchParams;
+//         setChPlace(chPlace);
+//         setChDate(chdate);
+//         setReDate(redate);
+
+//         try {
+//             const response = await axios.post('http://localhost:8080/carrent/searchPlace', {
+//                 chplace: chPlace,
+//                 chdate,
+//                 redate
+//             });
+//             console.log('API Response:', response.data);
+//             setCars(response.data);  // Save the fetched car data
+//         } catch (error) {
+//             console.error('Error searching for cars:', error);
+//         }
+//     };
+
+//     // useEffect(() => {
+//     //     // send params to the backend when the component mounts
+//     //     const postSearchData = async () => {
+//     //         try {
+//     //             const response = await axios.post('http://localhost:8080/carrent/searchPlace', {
+//     //                 chplace,
+//     //                 chdate,
+//     //                 redate
+//     //             });
+//     //             console.log('API Response:', response.data);
+//     //             setCars(response.data);  // Save the fetched cars data
+//     //         } catch (error) {
+//     //             console.error('Error searching for cars:', error);
+//     //         }
+//     //     };
+//     //     postSearchData();
+//     //     }, [chplace, chdate, redate]);
+
+//     return (
+//         <div className="wrapper">
+//             <section className=" pb-5 position-relative pt-5">
+//                 <div className="container-fluid">
+//                     <div class="row ps-5 pe-5">
+//                         <div className="col-xl-3 col-lg-5">
+//                             <p>Searching for cars available from {startDate} to {endDate} at {startPlace}</p>{/* Pass the handleSearch function to SideBar */}
+//                             <SideBar startPlace={startPlace} startDate={startDate} endDate={endDate} onSearch={handleSearch} />
+//                         </div>
+//                         <div className="col-xl-7 col-lg-7">
+//                             <MenuView cars={cars}/>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </section>
+//         </div>
+//     );
+// }
+
+// export default Search;
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import SideBar from './SideBar';
+import MenuView from './MenuView';
+
+function useQuery() { 
+    return new URLSearchParams(useLocation().search);
+}
 
 function Search() {
-    const [chplace, setChplace] = useState('');
-    const [chdate, setChdate] = useState('');
-    const [redate, setRedate] = useState('');
-    const navigate = useNavigate();
+    const query = useQuery();
+    const startPlace = query.get('place');
+    const startDate = query.get('start');
+    const endDate = query.get('end');
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const [cars, setCars] = useState([]); // Store the API response (car data)
+    const [isLoading, setIsLoading] = useState(false);
+
+    // Function to search for cars based on the given params
+    const searchCars = async (chplace, chdate, redate) => {
+        setIsLoading(true);
         try {
             const response = await axios.post('http://localhost:8080/carrent/searchPlace', {
                 chplace,
                 chdate,
                 redate
             });
-            console.log('API Response:', response.data);
-            navigate('/menu', { state: { cars: response.data, chdate, redate } });
+            setCars(response.data);
         } catch (error) {
-            console.error('Error submitting form:', error);
+            console.error('Error searching for cars:', error);
         }
+        setIsLoading(false);
     };
 
+    useEffect(() => {
+        if (startPlace && startDate && endDate) {
+            searchCars(startPlace, startDate, endDate); // Automatically search when params are available
+        }
+    }, [startPlace, startDate, endDate]);
+
     return (
-        <div>
-            <section className="bg-secondary pb-5 position-relative poster pt-5 text-white-50">
-                <div className="container mt-5 pb-5 pt-5">
-                    <div className="mt-5 pt-5 row">
-                        <div className="col-md-10 col-xl-7 pt-5">
-                            <p className="fw-bold h4 text-white">Car Rentals</p>
-                            <h1 className="display-3 fw-bold mb-4 text-white">For Your <span className="text-primary">Everyday Commute</span> or <span className="text-primary">Leisure</span></h1>
-                            <div className="bg-white p-4">
-                                <h2 className="fw-bold h5 mb-3 text-dark">Let's find your ideal car</h2>
-                                <form onSubmit={handleSubmit}> 
-                                    <div className="align-items-center gx-2 gy-3 row">
-                                        <div className="col-sm"> 
-                                            <select 
-                                                className="form-control pb-2 pe-3 ps-3 pt-2 rounded-0" 
-                                                value={chplace} 
-                                                onChange={(e) => setChplace(e.target.value)}
-                                                required
-                                            >
-                                                <option value="">請選擇縣市</option>
-                                                <option value="Taipei">台北</option>
-                                                <option value="NewTaipei">新北</option>
-                                                <option value="Keelung">基隆</option>
-                                                <option value="Taoyuan">桃園</option>
-                                                <option value="Hsinchu">新竹</option>
-                                                <option value="Taichung">台中</option>
-                                                <option value="Changhua">彰化</option>
-                                                <option value="Yunlin">雲林</option>
-                                                <option value="Chiayi">嘉義</option>
-                                                <option value="Tainan">台南</option>
-                                                <option value="Kaohsiung">高雄</option>
-                                                <option value="Pingtung">屏東</option>
-                                                <option value="Hualien">花蓮</option>
-                                                <option value="Taitung">台東</option>
-                                            </select>
-                                        </div>
-                                        <div className="col-sm-4"> 
-                                            <input 
-                                                type="date" 
-                                                className="form-control pb-2 pe-3 ps-3 pt-2 rounded-0"
-                                                value={chdate}
-                                                onChange={(e) => setChdate(e.target.value)}
-                                                required
-                                            /> 
-                                        </div>
-                                        <div className="col-sm-4"> 
-                                            <input 
-                                                type="date" 
-                                                className="form-control pb-2 pe-3 ps-3 pt-2 rounded-0"
-                                                value={redate}
-                                                onChange={(e) => setRedate(e.target.value)}
-                                                required
-                                            /> 
-                                        </div>
-                                        <div className="col-sm-auto text-end"> 
-                                            <button type="submit" className="btn btn-primary pb-2 pe-4 ps-4 pt-2">Search</button>                                             
-                                        </div>
-                                    </div>                                     
-                                </form>
-                            </div>
+        <div className="wrapper">
+            <section className="pb-5 position-relative pt-5">
+                <div className="container-fluid">
+                    <div className="row ps-5 pe-5">
+                        <div className="col-xl-3 col-lg-5">
+                            <p>Searching for cars available from {startDate} to {endDate} at {startPlace}</p>
+                            <SideBar 
+                                startPlace={startPlace} 
+                                startDate={startDate} 
+                                endDate={endDate}
+                                onSearch={searchCars} // Pass search function to SideBar for manual search
+                            />
+                        </div>
+                        <div className="col-xl-7 col-lg-7">
+                            {isLoading ? <p>Loading...</p> : <MenuView cars={cars} />}
                         </div>
                     </div>
                 </div>
