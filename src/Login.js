@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { login as apiLogin } from './api';
 import { useNavigate, Link } from 'react-router-dom';
 import Footer from './Footer';
+import { useAuth } from './AuthContext';
 
 
 // 定義 Login 組件
@@ -10,6 +11,7 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { login } = useAuth();
   
   // 使用 useNavigate 鉤子來進行頁面導航
   const navigate = useNavigate();
@@ -22,7 +24,14 @@ const Login = () => {
     try {
       const userData = await apiLogin(username, password);
       if (userData) {
-        navigate('/');
+        login(userData);
+        const lastSearch = JSON.parse(localStorage.getItem('lastSearch'));
+        if (lastSearch) {
+          navigate(`/search?place=${lastSearch.chplace}&start=${lastSearch.chdate}&end=${lastSearch.redate}`);
+          localStorage.removeItem('lastSearch');
+        } else {
+          navigate('/');
+        }
       }
     } catch (error) {
       setError('登入失敗: ' + (error.response?.data || error.message));

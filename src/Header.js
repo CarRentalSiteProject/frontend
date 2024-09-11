@@ -1,7 +1,20 @@
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { logout as apiLogout } from './api';
+import { useAuth } from './AuthContext';
+function Header () {
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
 
-function Header() {
+    const handleLogout = async () => {
+        try {
+            await apiLogout();
+            logout();
+            navigate('/');
+        } catch (error) {
+            console.error('登出失敗', error);
+        }
+    };
     return (
         <div>
             <header className="bg-dark">
@@ -41,8 +54,19 @@ function Header() {
                                 </li>
                             </ul>
                             <div className="d-flex flex-wrap gap-2 py-1"> 
-                                <Link to="/login" className="btn btn-outline-primary pe-4 ps-4">Log In</Link> 
-                                <Link to="/signup" className="btn btn-outline-primary pe-4 ps-4">Sign up</Link>
+                            {user ? (
+                                <>
+                                    <span className="btn btn-outline-primary pe-4 ps-4">
+                                        {user.username}
+                                    </span>
+                                    <button onClick={handleLogout} className="btn btn-outline-primary pe-4 ps-4">登出</button>
+                                </>
+                            ) : (
+                                <>
+                                    <Link to="/login" className="btn btn-outline-primary pe-4 ps-4">Log In</Link> 
+                                    <Link to="/signup" className="btn btn-outline-primary pe-4 ps-4">Sign up</Link>
+                                </>
+                            )}
                             </div>                         
                         </div>                     
                     </div>                 

@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate  } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 
 function SearchEmbeded() {
     const [chplace, setChplace] = useState('');
     const [chdate, setChdate] = useState('');
     const [redate, setRedate] = useState('');
+    const {user} = useAuth();
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!user) {
+            // 如果用戶未登入，將當前搜索參數存儲到 localStorage
+            localStorage.setItem('lastSearch', JSON.stringify({ chplace, chdate, redate }));
+            // 重定向到登入頁面
+            navigate('/login');
+        } else {
         try {
             navigate(`/search?place=${chplace}&start=${chdate}&end=${redate}`);
             // const response = await axios.post('http://localhost:8080/carrent/searchPlace', {
@@ -21,6 +29,7 @@ function SearchEmbeded() {
             // navigate('/search', { state: { chplace, chdate, redate } });
         } catch (error) {
             console.error('Error submitting form:', error);
+            }
         }
     };
 
