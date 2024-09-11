@@ -46,5 +46,15 @@ export const validateToken = async () => {
   }
 };
 
+export const checkLoginStatus = async () => {
+  try {
+    const response = await api.get('/checkLoginStatus');
+    return response.data;
+  } catch (error) {
+    console.error('檢查登入狀態失敗:', error);
+    throw error;
+  }
+};
+
 // 導出 api 實例
 export default api;

@@ -1,40 +1,45 @@
 import React, { createContext, useState, useContext } from 'react';
-import { validateToken } from './api';
+import { validateToken, checkLoginStatus } from './api';
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
 
   const login = (userData) => {
+    setIsAuthenticated(true);
     setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
   };
 
   const logout = () => {
+    setIsAuthenticated(false);
     setUser(null);
+    localStorage.removeItem('user');
   };
 
   const checkAuth = async () => {
     try {
-      const isValid = await validateToken();
-      if (isValid) {
-        // 如果 token 有效，可以從後端獲取用戶信息
-        // 這裡假設 validateToken 返回用戶信息
-        setUser(isValid);
-        return true;
-      } else {
-        setUser(null);
+        const response = await checkLoginStatus();
+        if (response === 200) {
+          // 如果用戶已登入，可以從後端獲取用戶信息
+          const userData = await validateToken();
+          setIsAuthenticated(true);
+          setUser(userData);
+          localStorage.setItem('user', JSON.stringify(userData));
+        } else {
+          setIsAuthenticated(false);
+        }
+      } catch (error) {
+        console.error('驗證失敗:', error);
+        setIsAuthenticated(false);
         return false;
       }
-    } catch (error) {
-      console.error('驗證失敗:', error);
-      setUser(null);
-      return false;
-    }
-  };
+    };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, checkAuth }}>
+    <AuthContext.Provider value={{ isAuthenticated, user, login, logout, checkAuth }}>
       {children}
     </AuthContext.Provider>
   );
