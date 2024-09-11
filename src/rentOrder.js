@@ -1,21 +1,38 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 function RentOrder() {
     const location = useLocation();
-    const navigate = useNavigate();
-
-    // 從location.state獲取傳遞的數據
-    const { carDetail, chdate, redate } = location.state;
-
+    const { carDetail, chdate, redate } = location.state || {};
     const cDetails = carDetail.selectedCar;
 
-    const handleSubmit = (e) => {
+    const handlePayment = async (e) => {
         e.preventDefault();
-        // 提交表單，跳轉到payment頁面
-        navigate('http://localhost:8080/carrent/payment', { state: { carId: cDetails.carID, chdate, redate } });
+        try {
+            localStorage.setItem('carId', cDetails.CarID);//存入，待用
+            localStorage.setItem('chdate', chdate);
+            localStorage.setItem('redate', redate);
+            // 支付請求
+            const response = await axios.post('http://localhost:8080/carrent/payment', {
+                carId: cDetails.CarID,
+                chdate: chdate,
+                redate: redate,
+            });
+            const formHtml = response.data;
+
+            //後端回覆HTML後提交
+            const paymentDiv = document.createElement('div');
+            paymentDiv.innerHTML = formHtml;
+            document.body.appendChild(paymentDiv);
+            paymentDiv.querySelector('form').submit();
+
+        } catch (error) {
+            console.error('Error during payment:', error);
+        }
     };
 
+    
     return (
         <div>
             <p>取車日期 : {chdate}</p>
@@ -40,10 +57,11 @@ function RentOrder() {
                     </tr>
                 </tbody>
             </table>
-            <form onSubmit={handleSubmit}>
-                <button type="submit">Confirm Order</button>
+            <form onSubmit={handlePayment}>
+                <button type="submit">Confirm Order</button>            
             </form>
         </div>
     );
 }
+
 export default RentOrder;

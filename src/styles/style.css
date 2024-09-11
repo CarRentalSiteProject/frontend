@@ -24,11 +24,3 @@ body.poster {
 .main-content {
     padding-bottom: 150px; /* Footer height adjustment */
 }
-
-/* Footer position */
-footer {
-    height: 150px;
-    text-align: center;
-    padding: 20px;
-    position: relative;
-}

@@ -1,7 +1,38 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-function  MembershipInfo(){
+function MembershipInfo() {
+    const [memberInfo, setMemberInfo] = useState(null);
+    const navigate = useNavigate();
+
+    // 在後端 API 請求成功後存儲資料到 localStorage
+    const handleFetchMemberInfo = async () => {
+        try {
+            const response = await axios.get('/membership');
+            console.log('API Response:', response.data); // 檢查 API 回應
+            if (response.status === 200) {
+                const memberData = response.data.memberInfo; // 提取 memberInfo
+                localStorage.setItem('memberInfo', JSON.stringify(memberData));
+                setMemberInfo(memberData); // 設置 state 以更新界面
+            }
+        } catch (error) {
+            console.error('Error fetching member info:', error);
+        }
+    };
+    
+
+    useEffect(() => {
+        const info = localStorage.getItem('memberInfo');
+        if (info) {
+            setMemberInfo(JSON.parse(info));
+        } else {
+            handleFetchMemberInfo(); // 沒有會員資訊時調用 API 獲取
+        }
+    }, []);
+
+    console.log('Current Member Info:', memberInfo); // 檢查當前會員資料
+
     return (
         <section className="bg-secondary pb-5 position-relative poster pt-5 text-white-50">
             <div className="container mt-5 pb-5 pt-5">
@@ -9,62 +40,63 @@ function  MembershipInfo(){
                     <div className="col-md-10 col-xl-7 pt-5">
                         <p className="fw-bold h4 text-white">Car Rentals</p>
                         <h1><span className="display-3 fw-bold mb-4 text-primary">Member </span><span className="text-white">Information</span></h1>
-                        <div className="bg-white p-4">
-                            <h2 className="fw-bold h5 mb-3 text-dark">Information</h2>
-                            
-                            <form >
-                                <div className="align-items-center gx-2 gy-3 row">
-                                    <div className="col-6">
-                                        <label className="text-primary">Name: </label>
-                                        <input
-                                            type="text"
-                                            className="form-control pb-2 pe-3 ps-3 pt-2 rounded-0"
-                                            name="name"
-                                            
-                                            placeholder="Tom"
-                                        />
+                        {memberInfo && (
+                            <div className="bg-white p-4">
+                                <h2 className="fw-bold h5 mb-3 text-dark">Information</h2>
+                                <form>
+                                    <div className="align-items-center gx-2 gy-3 row">
+                                        <div className="col-6">
+                                            <label className="text-primary">Name: </label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                name="name"
+                                                value={memberInfo.name || ''}
+                                                readOnly
+                                            />
+                                        </div>
+                                        <div className="col-6">
+                                            <label className="text-primary">Age: </label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                name="age"
+                                                value={memberInfo.age || ''}
+                                                readOnly
+                                            />
+                                        </div>
+                                        <div className="col-6">
+                                            <label className="text-primary">Gender: </label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                name="gender"
+                                                value={memberInfo.gender || ''}
+                                                readOnly
+                                            />
+                                        </div>
+                                        <div className="col-12">
+                                            <label className="text-primary">Address: </label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                name="address"
+                                                value={memberInfo.address || ''}
+                                                readOnly
+                                            />
+                                        </div>
+                                        <div className="col-12 text-end">
+                                            <button type="button" className="btn btn-primary">Update Information</button>
+                                        </div>
                                     </div>
-                                    <div className="col-6">
-                                        <label className="text-primary">Age: </label>
-                                        <input
-                                            type="text"
-                                            className="form-control pb-2 pe-3 ps-3 pt-2 rounded-0"
-                                            name="age"
-                                            placeholder="18"
-                                        />
-                                    </div>
-                                    <div className="col-6">
-                                        <label className="text-primary">Gender: </label>
-                                        <input
-                                            type="text"
-                                            className="form-control pb-2 pe-3 ps-3 pt-2 rounded-0"
-                                            name="age"
-                                            placeholder="18"
-                                        />
-                                    </div>
-                                    <div className="col-12">
-                                        <label className="text-primary">Address: </label>
-                                        <input
-                                            type="text"
-                                            className="form-control pb-2 pe-3 ps-3 pt-2 rounded-0"
-                                            name="address"
-                                            placeholder="Taipei"
-                                        />
-                                    </div>
-                                    <Link to="/updateinfo">
-                                    <div className="col-12 text-end">
-                                        <button type="submit" className="btn btn-primary pb-2 pe-4 ps-4 pt-2">Update Information</button>
-                                    </div>
-                                    </Link>
-                                </div>
-                            </form>
-                            
-                        </div>
+                                </form>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
         </section>
     );
-
 }
+
 export default MembershipInfo;

@@ -1,7 +1,5 @@
-<<<<<<< HEAD
 # CarRentalSiteProject
 Java工程師養成班專題
-=======
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

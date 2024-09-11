@@ -22,6 +22,20 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+
+      // const response = await axios.post('http://localhost:8080/api/login', {
+      //   name: username,
+      //   password: password
+      // });
+
+      // if (response.data.success) {
+      //   // 成功處理
+      //   localStorage.setItem('memberInfo', JSON.stringify(response.data)); // 保存會員資訊到 localStorage
+      //   navigate('/'); // 使用 useNavigate 來跳轉首頁
+      // } else {
+      //   setMes(response.data.message);
+      //   alert(response.data.message); // 顯示彈出視窗
+
       const userData = await apiLogin(username, password);
       if (userData) {
         login(userData);

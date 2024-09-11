@@ -2,6 +2,8 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout as apiLogout } from './api';
 import { useAuth } from './AuthContext';
+import axios from 'axios';
+
 function Header () {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
@@ -13,6 +15,20 @@ function Header () {
             navigate('/');
         } catch (error) {
             console.error('登出失敗', error);
+        }
+    };
+
+    const memberID="2";
+    const handleIdClick = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:8080/carrent/forOrder', {
+                memberID
+            });
+            console.log('API Response:', response.data);
+            navigate('/forOrder', { state: { mbID: response.data } });
+        } catch (error) {
+            console.error('Error submitting form:', error);
         }
     };
     return (
@@ -67,7 +83,10 @@ function Header () {
                                     <Link to="/signup" className="btn btn-outline-primary pe-4 ps-4">Sign up</Link>
                                 </>
                             )}
-                            </div>                         
+                            <a href="#" className="btn btn-outline-primary pe-4 ps-4"
+                            onClick={handleIdClick}
+                                >Order</a>
+                            </div>                    
                         </div>                     
                     </div>                 
                 </nav>
