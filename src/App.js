@@ -33,18 +33,15 @@ function App() {
     checkAuth();
   }, []);
 
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-        const unwantedElement = document.getElementById('vidline-ext-0.1.43');
-        if (unwantedElement) {
-            unwantedElement.remove();
-        }
-    });
-
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    return () => observer.disconnect();
-}, []);
+  // useEffect(() => {
+  //   axios.get("http://localhost:8080/car/queryPage")
+  //   .then((response) => {
+  //     console.log(response);
+  //   })
+  //   .catch(error => {
+  //     setError(error);
+  //   });
+  // }, []);
 
   useEffect(() => {
     axios.get(baseUrl)
