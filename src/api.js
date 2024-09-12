@@ -18,12 +18,6 @@ export const login = async (username, password) => {
   return response.data;
 };
 
-// 註冊函數
-export const signup = async (username, password,  age , gender , email , licenseNub , address , phone) => {
-  const response =  await api.post('/signup', {username, password,  age , gender , email , licenseNub , address , phone});
-  return response.data;
-};
-
 // 登出函數
 export const logout = async () => {
   try {

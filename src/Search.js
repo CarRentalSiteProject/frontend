@@ -108,6 +108,8 @@ function Search() {
                 chplace,
                 chdate,
                 redate
+            },{
+                withCredentials: true
             });
             setCars(response.data);
         } catch (error) {
