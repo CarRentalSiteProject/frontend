@@ -83,9 +83,9 @@ function Header () {
                                     <Link to="/signup" className="btn btn-outline-primary pe-4 ps-4">Sign up</Link>
                                 </>
                             )}
-                            <a href="#" className="btn btn-outline-primary pe-4 ps-4"
+                            <Link href="/forOrder" className="btn btn-outline-primary pe-4 ps-4"
                             onClick={handleIdClick}
-                                >Order</a>
+                                >Order</Link>
                             </div>                    
                         </div>                     
                     </div>                 

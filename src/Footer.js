@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Footer() {
     return (
@@ -44,91 +45,20 @@ function Footer() {
                             </div>                             
                         </div>
                         <div className="col-md col-sm-6 py-3"> 
-                            <h2 className="fw-bold h5 mb-0 text-info">Company</h2>
+                            <h2 className="fw-bold h5 mb-0 text-info">Quick Links</h2>
                             <hr className="d-inline-block mb-4 w-25"/>
                             <ul className="list-unstyled"> 
                                 <li className="mb-3"> 
-                                    <a href="#" className="link-light">FAQ</a> 
+                                    <a href="/fleets" className="link-light">Our Fleet</a> 
                                 </li>
                                 <li className="mb-3"> 
-                                    <a href="#" className="link-light">News</a> 
+                                    <Link to="/membership" className="link-light">Membership</Link> 
                                 </li>
                                 <li className="mb-3"> 
-                                    <a href="#" className="link-light">Careers</a> 
-                                </li>
-                                <li className="mb-3"> 
-                                    <a href="#" className="link-light">About Us</a> 
-                                </li>                                 
-                                <li className="mb-3"> 
-                                    <a href="#" className="link-light">Contact Us</a> 
-                                </li>                                 
+                                    <Link to="/forOrder" className="link-light">Order</Link> 
+                                </li>                              
                             </ul>                             
-                        </div>
-                        <div className="col-md col-sm-6 py-3"> 
-                            <h2 className="fw-bold h5 mb-0 text-info">Vehicles</h2>
-                            <hr className="d-inline-block mb-4 w-25"/>
-                            <ul className="list-unstyled"> 
-                                <li className="mb-3"> 
-                                    <a href="#" className="link-light">SUVs</a> 
-                                </li>
-                                <li className="mb-3"> 
-                                    <a href="#" className="link-light">Sedans</a> 
-                                </li>
-                                <li className="mb-3"> 
-                                    <a href="#" className="link-light">Mini Vans</a> 
-                                </li>
-                                <li className="mb-3"> 
-                                    <a href="#" className="link-light">Sports Cars</a> 
-                                </li>
-                                <li className="mb-3"> 
-                                    <a href="#" className="link-light">Convertibles</a> 
-                                </li>                                 
-                            </ul>                             
-                        </div>
-                        <div className="col-lg-4 col-md-5 py-3"> 
-                            <h2 className="fw-bold h5 mb-0 text-info">Top Cities</h2>
-                            <hr className="d-inline-block mb-4 w-25"/>
-                            <div className="gy-3 row row-cols-sm-2">
-                                <div> 
-                                    <ul className="list-unstyled"> 
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">Taxes</a> 
-                                        </li>
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">Boston</a> 
-                                        </li>
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">Colorado</a> 
-                                        </li>
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">California</a> 
-                                        </li>                                         
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">Manhattan</a> 
-                                        </li>                                         
-                                    </ul>
-                                </div>
-                                <div> 
-                                    <ul className="list-unstyled"> 
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">Dallas</a> 
-                                        </li>
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">Huston</a> 
-                                        </li>
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">Seattle</a> 
-                                        </li>
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">Denver</a> 
-                                        </li>
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">Phoenix</a> 
-                                        </li>                                         
-                                    </ul>
-                                </div>
-                            </div>                             
-                        </div>                         
+                        </div>                        
                     </div>                     
                     <div className="pb-3 pt-3"> 
                         <hr className="border-secondary mt-0"/> 
