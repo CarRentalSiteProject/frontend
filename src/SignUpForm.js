@@ -40,14 +40,14 @@ function SignUpForm() {
         for (const field in formData) {
             if (!formData[field]) {
                 let fieldName = field === 'licenseNub' ? 'License Number' : field; // 如果是 licenseNub，就顯示 License Number
-                alert(`${fieldName} 不得為空`);
+                alert(`${fieldName} must not be empty !`);
                 return;
             }
         }
 
         // 檢查密碼和確認密碼是否一致
         if (formData.password !== formData.confirmPassword) {
-            alert('密碼不一致');
+            alert('Passwords do not match.');
             return; // 停止表單提交
         }
 
@@ -63,12 +63,12 @@ function SignUpForm() {
         })
         .then(response => {
             console.log('Response:', response.data);
-            alert('帳號註冊成功');
+            alert('Sign up successful ! Please log in !');
             navigate('/login'); // 成功後跳轉到登錄頁面
         })
         .catch(error => {
             if (error.response && error.response.status === 400) {
-                alert(error.response.data.error || "帳號已註冊!");
+                alert(error.response.data.error || "Account already exists !");
             } else {
                 console.error('There was an error!', error);
             }
@@ -94,7 +94,6 @@ function SignUpForm() {
                                             name="name"
                                             value={formData.name}
                                             onChange={handleChange}
-                                            placeholder="Tom"
                                         />
                                     </div>
                                     <div className="col-6">
@@ -105,7 +104,6 @@ function SignUpForm() {
                                             name="age"
                                             value={formData.age}
                                             onChange={handleChange}
-                                            placeholder="18"
                                         />
                                     </div>
                                     <div className="col-6">
@@ -155,7 +153,6 @@ function SignUpForm() {
                                             name="phone"
                                             value={formData.phone}
                                             onChange={handleChange}
-                                            placeholder="09XX-XXX-XXX"
                                         />
                                     </div>
                                     <div className="col-12">
@@ -166,7 +163,6 @@ function SignUpForm() {
                                             name="email"
                                             value={formData.email}
                                             onChange={handleChange}
-                                            placeholder="tom@test.com"
                                         />
                                     </div>
                                     <div className="col-6">
@@ -199,7 +195,6 @@ function SignUpForm() {
                                             name="address"
                                             value={formData.address}
                                             onChange={handleChange}
-                                            placeholder="Taipei"
                                         />
                                     </div>
                                     <div className="col-6">
@@ -210,7 +205,6 @@ function SignUpForm() {
                                             name="licenseNub"
                                             value={formData.licenseNub}
                                             onChange={handleChange}
-                                            placeholder="A1XXXXXXXX"
                                         />
                                     </div>
                                     <div className="col-12 text-end">
