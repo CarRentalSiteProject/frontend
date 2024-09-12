@@ -33,16 +33,6 @@ function App() {
     checkAuth();
   }, []);
 
-  // useEffect(() => {
-  //   axios.get("http://localhost:8080/car/queryPage")
-  //   .then((response) => {
-  //     console.log(response);
-  //   })
-  //   .catch(error => {
-  //     setError(error);
-  //   });
-  // }, []);
-
   useEffect(() => {
     axios.get(baseUrl)
       .then((response) => {

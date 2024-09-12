@@ -1,21 +1,21 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import { validateToken, checkLoginStatus } from './api';
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const login = (userData) => {
-    setIsAuthenticated(true);
     setUser(userData);
+    setIsAuthenticated(true);
     localStorage.setItem('user', JSON.stringify(userData));
   };
 
   const logout = () => {
-    setIsAuthenticated(false);
     setUser(null);
+    setIsAuthenticated(false);
     localStorage.removeItem('user');
   };
 
@@ -38,8 +38,16 @@ export const AuthProvider = ({ children }) => {
       }
     };
 
+    useEffect(() => {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+        setIsAuthenticated(true);
+      }
+    }, []);
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, login, logout, checkAuth }}>
+    <AuthContext.Provider value={{ user, login, logout, checkAuth }}>
       {children}
     </AuthContext.Provider>
   );
