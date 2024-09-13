@@ -23,7 +23,7 @@ function Search() {
 
     const jwtToken = Cookies.get('jwt');
 
-    const searchCars = async (chplace, chdate, redate, page = 0) => {
+    const searchCars = async (chplace, chdate, redate, page = 0, sortBy = "price", direction = "desc") => {
         setIsLoading(true);
         try {
             const response = await axios.post(`http://localhost:8080/car/queryPage`, {
@@ -31,7 +31,9 @@ function Search() {
                 chdate,
                 redate,
                 page,
-                size: pageSize
+                size: pageSize,
+                sortBy, // Include sortBy
+                direction // Include direction
             }, {
                 headers: {
                     Authorization: `Bearer ${jwtToken}`
@@ -39,12 +41,13 @@ function Search() {
                 withCredentials: true
             });
             setCars(response.data.cars);
-            setTotalPages(response.data.totalPages); // Set total pages
+            setTotalPages(response.data.totalPages);
         } catch (error) {
             console.error('Error searching for cars:', error);
         }
         setIsLoading(false);
     };
+    
 
     useEffect(() => {
         if (startPlace && startDate && endDate) {
