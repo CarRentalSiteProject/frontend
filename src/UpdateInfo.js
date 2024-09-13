@@ -7,7 +7,6 @@ function UpdateInfo() {
         <div>
             <main>
                 <UpdateInfoForm />
-                <Footer />
             </main>
         </div>
     );

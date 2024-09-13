@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { login as apiLogin } from './api';
 import { useNavigate, Link } from 'react-router-dom';
-import Footer from './Footer';
+//import Footer from './Footer';
 import { useAuth } from './AuthContext';
 
 
@@ -91,9 +91,6 @@ const Login = () => {
             </div>
           </div>
         </section>
-        <div>
-          <Footer />
-        </div>
       </main>
     </div>
   );

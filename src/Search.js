@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import SideBar from './SideBar';
 import MenuView from './MenuView';
 
-function useQuery() { 
+function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 
@@ -15,7 +15,7 @@ function Search() {
     const startDate = query.get('start');
     const endDate = query.get('end');
 
-    const [cars, setCars] = useState([]); 
+    const [cars, setCars] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(0); // Current page state
     const [totalPages, setTotalPages] = useState(1); // Total pages
@@ -65,9 +65,10 @@ function Search() {
     for (let i = 0; i < totalPages; i++) {
         pages.push(
             <li className={`page-item ${i === currentPage ? 'active' : ''}`} key={i}>
-                <a className="page-link"
-                onClick={() => handlePageChange(i)} // Pass the correct page index
-                disabled={i === currentPage}>
+                <a
+                    className={`page-link ${currentPage === 0 ? 'disabled' : ''}`}
+                    onClick={() => currentPage > 0 && handlePageChange(currentPage - 1)}
+                >
                     {i + 1} {/* Displaying 1-based page number */}
                 </a>
             </li>
@@ -82,9 +83,9 @@ function Search() {
                     <div className="row ps-5 pe-5">
                         <div className="col-xl-3 col-lg-5">
                             <p>Searching for cars available from {startDate} to {endDate} at {startPlace}</p>
-                            <SideBar 
-                                startPlace={startPlace} 
-                                startDate={startDate} 
+                            <SideBar
+                                startPlace={startPlace}
+                                startDate={startDate}
                                 endDate={endDate}
                                 onSearch={searchCars}
                             />
@@ -95,17 +96,17 @@ function Search() {
                                 <ul className="pagination d-flex justify-content-center">
                                     <li className="page-item">
                                         <a className="page-link"
-                                    onClick={() => handlePageChange(currentPage - 1)} 
-                                    disabled={currentPage === 0}>
-                                        Previous
+                                            onClick={() => handlePageChange(currentPage - 1)}
+                                            disabled={currentPage === 0}>
+                                            Previous
                                         </a>
                                     </li>
                                     {pages}
                                     <li className="page-item">
                                         <a className="page-link"
-                                    onClick={() => handlePageChange(currentPage + 1)} 
-                                    disabled={currentPage + 1 >= totalPages}>
-                                        Next
+                                            onClick={() => handlePageChange(currentPage + 1)}
+                                            disabled={currentPage + 1 >= totalPages}>
+                                            Next
                                         </a>
                                     </li>
                                 </ul>

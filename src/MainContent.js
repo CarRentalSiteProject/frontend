@@ -14,7 +14,6 @@ function MainContent() {
             <TopCars />
             <Fleets />
             <Comments />
-            <Mobile />
         </main>
     );
 }
