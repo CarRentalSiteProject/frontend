@@ -14,6 +14,8 @@ function Search() {
     const startPlace = query.get('place');
     const startDate = query.get('start');
     const endDate = query.get('end');
+    const sortBy = query.get('sortBy')? query.get('sortBy') : "price";
+    const direction = query.get('direction')? query.get('direction') : "desc";
 
     const [cars, setCars] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +25,7 @@ function Search() {
 
     const jwtToken = Cookies.get('jwt');
 
-    const searchCars = async (chplace, chdate, redate, page = 0, sortBy = "price", direction = "desc") => {
+    const searchCars = async (chplace, chdate, redate, page = 0, sortBy, direction) => {
         setIsLoading(true);
         try {
             const response = await axios.post(`http://localhost:8080/car/queryPage`, {
@@ -50,10 +52,10 @@ function Search() {
     
 
     useEffect(() => {
-        if (startPlace && startDate && endDate) {
-            searchCars(startPlace, startDate, endDate, currentPage);
-        }
-    }, [startPlace, startDate, endDate, currentPage]);
+    if (startPlace && startDate && endDate && sortBy && direction) {
+        searchCars(startPlace, startDate, endDate, currentPage, sortBy, direction);
+    }
+    }, [startPlace, startDate, endDate, currentPage, sortBy, direction]);
 
     const handlePageChange = (newPage) => {
         if (newPage >= 0 && newPage < totalPages) {
@@ -82,7 +84,6 @@ function Search() {
                 <div className="container-fluid">
                     <div className="row ps-5 pe-5">
                         <div className="col-xl-3 col-lg-5">
-                            <p>Searching for cars available from {startDate} to {endDate} at {startPlace}</p>
                             <SideBar
                                 startPlace={startPlace}
                                 startDate={startDate}
