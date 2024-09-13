@@ -53,25 +53,31 @@ function UpdateInfoForm() {
         };
 
         axios
-            .put('http://localhost:8080/api/updateinfo', updatedFormData, {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-            .then(() => {
-                // 比較 formData.name 和 memberData.name，判斷姓名是否更改
-                if (formData.name !== memberData.name) {
-                    alert("Update successful! Please log in!");
-                    localStorage.removeItem('user');
-                    navigate('/login');
-                } else {
-                    alert("Update successful!");
-                    navigate('/membership'); // 更新成功後跳轉到會員頁面
-                }
+        .put('http://localhost:8080/api/updateinfo', updatedFormData, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        .then((response) => {
+            // 從後端回應中取得 logoutRequired 標誌
+            const { logoutRequired } = response.data;
 
-            })
-            .catch((error) => {
-                console.error('Error updating membership data', error);
-                setError('Failed to update member data. Please try again later.');
-            });
+            // 若後端要求登出，則清空 localStorage 並跳轉至 login 頁面
+            if (logoutRequired) {
+                alert("Update successful, please log in again.");
+                localStorage.removeItem('user');
+                // 清除 cookie
+                document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                window.location.reload(); // 重新載入頁面
+                navigate('/login');  // 跳轉到登入頁面
+            } else {
+                alert("Update successful!");
+                navigate('/membership');  // 若無需登出則跳轉至會員頁面
+            }
+        })
+        .catch((error) => {
+            console.error('Error updating membership data', error);
+            setError('Failed to update member data. Please try again later.');
+        });
+
     };
 
 

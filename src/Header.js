@@ -10,27 +10,28 @@ function Header () {
 
     const handleLogout = async () => {
         try {
-            await apiLogout();
-            logout();
-            navigate('/');
+            await apiLogout(); // 調用登出 API
+            logout(); // 更新 auth 上下文狀態
+            navigate('/login', { replace: true }); // 導向登入頁並替換當前頁面
         } catch (error) {
             console.error('登出失敗', error);
         }
     };
 
-    const memberID="2";
+    const memberID = "2";
     const handleIdClick = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8080/carrent/forOrder', {
                 memberID
             });
-            console.log('API Response:', response.data);
+            console.log('API 回應:', response.data);
             navigate('/forOrder', { state: { mbID: response.data } });
         } catch (error) {
-            console.error('Error submitting form:', error);
+            console.error('提交表單錯誤:', error);
         }
     };
+
     return (
         <div>
             <header className="bg-dark">
@@ -70,22 +71,20 @@ function Header () {
                                 </li>
                             </ul>
                             <div className="d-flex flex-wrap gap-2 py-1"> 
-                            {user ? (
-                                <>
-                                    <span className="btn btn-outline-primary pe-4 ps-4">
-                                        {user.username}
-                                    </span>
-                                    <button onClick={handleLogout} className="btn btn-outline-primary pe-4 ps-4">登出</button>
-                                </>
-                            ) : (
-                                <>
-                                    <Link to="/login" className="btn btn-outline-primary pe-4 ps-4">Log In</Link> 
-                                    <Link to="/signup" className="btn btn-outline-primary pe-4 ps-4">Sign up</Link>
-                                </>
-                            )}
-                            <Link href="/forOrder" className="btn btn-outline-primary pe-4 ps-4"
-                            onClick={handleIdClick}
-                                >Order</Link>
+                                {user ? (
+                                    <>
+                                        <span className="btn btn-outline-primary pe-4 ps-4">
+                                            {user.username}
+                                        </span>
+                                        <button onClick={handleLogout} className="btn btn-outline-primary pe-4 ps-4">登出</button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Link to="/login" className="btn btn-outline-primary pe-4 ps-4">Log In</Link> 
+                                        <Link to="/signup" className="btn btn-outline-primary pe-4 ps-4">Sign up</Link>
+                                    </>
+                                )}
+                                <Link to="/forOrder" className="btn btn-outline-primary pe-4 ps-4" onClick={handleIdClick}>Order</Link>
                             </div>                    
                         </div>                     
                     </div>                 

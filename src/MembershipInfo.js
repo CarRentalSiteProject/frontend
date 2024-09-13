@@ -8,30 +8,30 @@ function MembershipInfo() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // 從 localStorage 取得 token 和 username
         const user = JSON.parse(localStorage.getItem('user'));
-        console.log('Retrieved user:', user);  // Debugging statement
+        console.log('Retrieved user:', user);  // 調試語句
         const token = user ? user.token : null;
-
+    
+        console.log('Token:', token);  // 調試語句
         if (!token) {
-            alert("Please Login!");
-            navigate('/login');  // 如果沒有 token 則重定向到登入頁面
+            alert("Please log in!");  // 顯示提示框
+            navigate('/login');  // 導航到登入頁面
             return;
         }
-
-        // 從後端抓取會員資料
+    
         axios
             .get('http://localhost:8080/api/membership', { headers: { Authorization: `Bearer ${token}` } })
             .then((response) => {
-                setMemberData(response.data);  // 儲存從後端返回的會員資料
-                setError(null);  // 清除任何先前的錯誤
+                setMemberData(response.data);
+                setError(null);
             })
             .catch((error) => {
-                console.error('Error fetching membership data:', error);  // Debugging statement
+                console.error('Error fetching membership data:', error);  // 調試語句
                 setError('Failed to fetch member data. Please try again later.');
-                navigate('/login'); // 如果發生錯誤重定向到登入頁面
+                navigate('/login');
             });
     }, [navigate]);
+    
 
     if (error) {
         return <div>{error}</div>; // 顯示錯誤信息
