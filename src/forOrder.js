@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-function ForOrder(){
+function ForOrder(car){
     const location = useLocation();
     const navigate = useNavigate();
     const{mbID}=location.state|| {};
     const orders = mbID.mbodData;
     const mbname = mbID.mbName;
-   
+
+    console.log(car);
 
     const handleDetailClick = async (searchdetailID) => {
         try {
