@@ -14,9 +14,9 @@ function Header () {
     const token = userObj ? userObj.token : null;
     const handleLogout = async () => {
         try {
-            await apiLogout();
-            logout();
-            navigate('/');
+            await apiLogout(); // 調用登出 API
+            logout(); // 更新 auth 上下文狀態
+            navigate('/login', { replace: true }); // 導向登入頁並替換當前頁面
         } catch (error) {
             console.error('登出失敗', error);
         }
@@ -35,7 +35,7 @@ function Header () {
                 },
                 withCredentials: true
             });
-            console.log('API Response:', response.data);
+            console.log('API 回應:', response.data);
             navigate('/forOrder', { state: { mbID: response.data } });
         } catch (error) {
             console.error('Error submitting form:', error);
@@ -43,6 +43,7 @@ function Header () {
             navigate('/login');
         }
     };
+
     return (
         <div>
             <header className="bg-dark">

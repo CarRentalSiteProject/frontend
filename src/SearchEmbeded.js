@@ -9,6 +9,9 @@ function SearchEmbeded() {
     const [chplace, setChplace] = useState('');
     const [chdate, setChdate] = useState('');
     const [redate, setRedate] = useState('');
+    const [sortBy, setSortBy] = useState('price');
+    const [sortDirection, setSortDirection] = useState('desc');
+    
     const {user} = useAuth();
     const navigate = useNavigate();
 
@@ -21,14 +24,7 @@ function SearchEmbeded() {
             navigate('/login');
         } else {
         try {
-            navigate(`/search?place=${chplace}&start=${chdate}&end=${redate}`);
-            // const response = await axios.post('http://localhost:8080/carrent/searchPlace', {
-            //     chplace,
-            //     chdate,
-            //     redate
-            // });
-            // console.log('API Response:', response.data);
-            // navigate('/search', { state: { chplace, chdate, redate } });
+            navigate(`/search?place=${chplace}&start=${chdate}&end=${redate}&sortBy=${sortBy}&direction=${sortDirection}`);
         } catch (error) {
             console.error('Error submitting form:', error);
             }
