@@ -48,32 +48,37 @@ function ForOrder() {
                   style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', fontWeight: 'bold' }}
                 > <h1 className="display-3 fw-bold mb-5 text-white">
                     <span className="text-primary">Order Details for _{mbname}_</span>
-                  </h1>
-                  <table className="table table-bordered text-center" style={{ borderCollapse: 'collapse', backgroundColor: 'white' }}>
-                    <thead>
-                      <tr>
-                        <th style={{ padding: '10px' }}>Order Number</th>
-                        <th style={{ padding: '10px' }}>Order Static</th>
-                        <th style={{ padding: '10px' }}></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {orders.map((order) => (
-                        <tr key={order.OrderID
-                        }>
-                          <td>{order.Detail_ID}</td>
-                          <td>{order.Od_Status}</td>
-                          <td>
-                            <button
-                              onClick={() => handleDetailClick(order.OrderID)}
-                            >
-                              More Detail Information
-                            </button>
-                          </td>
+                    </h1>
+                  {orders == null || orders.length === 0 ? (
+                    // Display this message when orders is null
+                    <div style={{ backgroundColor: 'white', padding: '20px', textAlign: 'center' }}>
+                      <h2>None of Order</h2>
+                    </div>
+                  ) : (
+                    // Otherwise, display the table
+                    <table className="table table-bordered text-center" style={{ borderCollapse: 'collapse', backgroundColor: 'white' }}>
+                      <thead>
+                        <tr>
+                          <th style={{ padding: '10px' }}>Order Number</th>
+                          <th style={{ padding: '10px' }}>Order Status</th>
+                          <th style={{ padding: '10px' }}></th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {orders.map((order) => (
+                          <tr key={order.OrderID}>
+                            <td>{order.Detail_ID}</td>
+                            <td>{order.Od_Status}</td>
+                            <td>
+                              <button onClick={() => handleDetailClick(order.OrderID)}>
+                                More Detail Information
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
                   <div className="container mt-3">
                     <div className="d-flex justify-content-between">
                       <form onSubmit={handleback}>
@@ -89,6 +94,6 @@ function ForOrder() {
       </main>
     </div>
   );
-};
+}
 
 export default ForOrder;
