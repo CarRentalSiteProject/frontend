@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 function Menu() {
     const location = useLocation();
     const navigate = useNavigate();
     const { cars, chdate, redate } = location.state;
     const [selectedCar, setSelectedCar] = useState('');
+    const jwtToken = Cookies.get('jwt');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,6 +17,11 @@ function Menu() {
                 selectedCar,
                 chdate,
                 redate
+            }, {
+                headers: {
+                    Authorization: `Bearer ${jwtToken}`
+                },
+                withCredentials: true
             });
             console.log('API Response:', response.data);
             // Handle the response, maybe navigate to a confirmation page
@@ -51,7 +58,7 @@ function Menu() {
                                         onChange={(e) => setSelectedCar(e.target.value)}
                                     />
                                 </td>
-                                <td>{car.CarType}</td>
+                                <td>{car.carType}</td>
                                 <td>{car.C_Location}</td>
                                 <td>{car.Price}</td>
                                 <td>{car.PeopleNub}</td>
