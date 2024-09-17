@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Footer() {
     return (
@@ -15,16 +16,39 @@ function Footer() {
                                     <path d="M52.762 40h30.571V26.667H66.094Z" opacity="0.2"/>
                                 </svg>
                                 <span>Prime Drive</span>
-                            </a> 
+                            </a>                              
+                        </div>
+                        <div className="col-md col-sm-6 py-3"> 
+                            <h2 className="fw-bold h5 mb-0 text-info">Quick Links</h2>
+                            <hr className="d-inline-block mb-4 w-25"/>
+                            <ul className="list-unstyled"> 
+                                <li className="mb-3"> 
+                                    <a href="/fleets" className="link-light">Our Fleet</a> 
+                                </li>
+                                <li className="mb-3"> 
+                                    <Link to="/membership" className="link-light">Membership</Link> 
+                                </li>
+                                <li className="mb-3"> 
+                                    <Link to="/forOrder" className="link-light">Order</Link> 
+                                </li>                              
+                            </ul>                             
+                        </div>
+                        <div className="col-md col-sm-6 py-3"> 
+                            <h2 className="fw-bold h5 mb-0 text-info">How to contact us</h2>
+                            <hr className="d-inline-block mb-4 w-25"/>
+                            
                             <ul className="list-unstyled">
-                                <li className="mb-1">9056 Fairground Ave., New York, USA</li>
+                                <li className="mb-1">address:9056 Fairground Ave., New York, USA</li>
                                 <li className="mb-1">
-                                    <a href="#" className="link-info">+0 123 456 7890</a>
+                                    phone:+0 123 456 7890
                                 </li>
                                 <li className="mb-1">
-                                    <a href="#" className="link-info">info@company.com</a>
+                                    email:info@company.com
                                 </li>
                             </ul>
+                        </div>
+                        <div className="col-md col-sm-6 py-3"> 
+                            <h2 className="fw-bold h5 mb-0 text-info">Follow us</h2>                           
                             <div className="d-inline-flex flex-wrap gap-2 py-1"> 
                                 <a href="#" aria-label="facebook" className="link-light"> <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"> 
                                         <path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5z"/> 
@@ -41,95 +65,9 @@ function Footer() {
                                 <a href="#" aria-label="youtube" className="link-light"> <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"> 
                                         <path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z"/> 
                                     </svg> </a> 
-                            </div>                             
-                        </div>
-                        <div className="col-md col-sm-6 py-3"> 
-                            <h2 className="fw-bold h5 mb-0 text-info">Company</h2>
-                            <hr className="d-inline-block mb-4 w-25"/>
-                            <ul className="list-unstyled"> 
-                                <li className="mb-3"> 
-                                    <a href="#" className="link-light">FAQ</a> 
-                                </li>
-                                <li className="mb-3"> 
-                                    <a href="#" className="link-light">News</a> 
-                                </li>
-                                <li className="mb-3"> 
-                                    <a href="#" className="link-light">Careers</a> 
-                                </li>
-                                <li className="mb-3"> 
-                                    <a href="#" className="link-light">About Us</a> 
-                                </li>                                 
-                                <li className="mb-3"> 
-                                    <a href="#" className="link-light">Contact Us</a> 
-                                </li>                                 
-                            </ul>                             
-                        </div>
-                        <div className="col-md col-sm-6 py-3"> 
-                            <h2 className="fw-bold h5 mb-0 text-info">Vehicles</h2>
-                            <hr className="d-inline-block mb-4 w-25"/>
-                            <ul className="list-unstyled"> 
-                                <li className="mb-3"> 
-                                    <a href="#" className="link-light">SUVs</a> 
-                                </li>
-                                <li className="mb-3"> 
-                                    <a href="#" className="link-light">Sedans</a> 
-                                </li>
-                                <li className="mb-3"> 
-                                    <a href="#" className="link-light">Mini Vans</a> 
-                                </li>
-                                <li className="mb-3"> 
-                                    <a href="#" className="link-light">Sports Cars</a> 
-                                </li>
-                                <li className="mb-3"> 
-                                    <a href="#" className="link-light">Convertibles</a> 
-                                </li>                                 
-                            </ul>                             
-                        </div>
-                        <div className="col-lg-4 col-md-5 py-3"> 
-                            <h2 className="fw-bold h5 mb-0 text-info">Top Cities</h2>
-                            <hr className="d-inline-block mb-4 w-25"/>
-                            <div className="gy-3 row row-cols-sm-2">
-                                <div> 
-                                    <ul className="list-unstyled"> 
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">Taxes</a> 
-                                        </li>
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">Boston</a> 
-                                        </li>
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">Colorado</a> 
-                                        </li>
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">California</a> 
-                                        </li>                                         
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">Manhattan</a> 
-                                        </li>                                         
-                                    </ul>
-                                </div>
-                                <div> 
-                                    <ul className="list-unstyled"> 
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">Dallas</a> 
-                                        </li>
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">Huston</a> 
-                                        </li>
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">Seattle</a> 
-                                        </li>
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">Denver</a> 
-                                        </li>
-                                        <li className="mb-3"> 
-                                            <a href="#" className="link-light">Phoenix</a> 
-                                        </li>                                         
-                                    </ul>
-                                </div>
-                            </div>                             
-                        </div>                         
-                    </div>                     
+                            </div>
+                        </div>                   
+                    </div>               
                     <div className="pb-3 pt-3"> 
                         <hr className="border-secondary mt-0"/> 
                         <div className="align-items-center row">
