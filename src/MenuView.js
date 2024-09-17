@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
 import { Modal as BootstrapModal } from 'bootstrap';
 
-function MenuView({ cars }) {
+function MenuView({ cars, chdate, redate }) {
   const [selectedCar, setSelectedCar] = useState(null);
   const [modalInstance, setModalInstance] = useState(null);
 
-  const handleModalOpen = (car, event) => {
+  const handleModalOpen = (car, chdate, redate, event) => {
     event.preventDefault();
+    console.log(chdate);
     setSelectedCar(car);
   };
 
@@ -39,7 +40,7 @@ function MenuView({ cars }) {
       <div className="g-4 justify-content-center mt-2 mb-3 row row-cols-lg-3 row-cols-md-2">
         {cars && cars.length > 0 ? (
           cars.map((car, index) => (
-            <div key={index} className="col" onClick={(event) => handleModalOpen(car, event)}>
+            <div key={index} className="col" onClick={(event) => handleModalOpen(car, chdate, redate, event)}>
               <div className="bg-white border shadow-sm">
                 <a href="#">
                   <img
@@ -87,7 +88,7 @@ function MenuView({ cars }) {
       </div>
 
       {/* Modal component */}
-      <Modal car={selectedCar} />
+      <Modal car={selectedCar} chdate={chdate} redate={redate} />
     </div>
   );
 }

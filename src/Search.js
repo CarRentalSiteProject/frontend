@@ -42,6 +42,7 @@ function Search() {
                 },
                 withCredentials: true
             });
+            console.log(response);
             setCars(response.data.cars);
             setTotalPages(response.data.totalPages);
         } catch (error) {
@@ -92,7 +93,7 @@ function Search() {
                             />
                         </div>
                         <div className="col-xl-7 col-lg-7">
-                            {isLoading ? <p>Loading...</p> : <MenuView cars={cars} />}
+                            {isLoading ? <p>Loading...</p> : <MenuView cars={cars} chdate={startDate} redate={endDate} />}
                             <nav aria-label="Page navigation example">
                                 <ul className="pagination d-flex justify-content-center">
                                     <li className="page-item">
