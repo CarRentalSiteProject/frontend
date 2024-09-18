@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const ForOrderDetail = () => {
   const location = useLocation();
   const [orderDetail, setOrderDetail] = useState({});
-  const [mbName,setmbName]=useState('');
+  const [mbName, setmbName] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const handleback = (event) => {
+    event.preventDefault(); // 阻止表單的默認提交行為
+    navigate('/'); // 導航回首頁
+    window.scrollTo(0, 0);//回網頁頂部
+  };
 
   useEffect(() => {
     const fetchOrderDetail = async () => {
@@ -35,50 +41,71 @@ const ForOrderDetail = () => {
   const date = new Date(orderDetail.Date);
 
 
-  date.setDate(date.getDate() + (orderDetail.Days-1));
+  date.setDate(date.getDate() + (orderDetail.Days - 1));
 
 
   const reDate = date.toISOString().split('T')[0];
 
   return (
-    <div>
-      <h1>訂單詳細資訊</h1>
-      <table border="1">
-        <thead>
-          <tr>
-            <th>欄位</th>
-            <th>數值</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr >
-              <td>會員名稱 : </td>
-              <td>{mbName}</td>
-            </tr>
-            <tr >
-              <td>訂單編號 : </td>
-              <td>{orderDetail.Detail_ID}</td>
-            </tr>
-              <td>交易金額 :</td>
-              <td>{orderDetail.Price}</td>
-            <tr>
-              <td>租借車輛 :</td>
-              <td>{orderDetail.CarType}</td>
-            </tr>            
-            <tr>
-              <td>租借地點 :</td>
-              <td>{orderDetail.Location}</td>
-            </tr>
-            <tr>
-              <td>租車日期 :</td>
-              <td>{orderDetail.Date}</td>
-            </tr>
-            <tr>
-              <td>還車日期 :</td>
-              <td>{reDate}</td>
-            </tr>
-        </tbody>
-      </table>
+    <div className="text-muted">
+
+      <main>
+        <section className="bg-secondary pb-5 position-relative poster pt-5 text-white-50">
+          <div className="container" />
+          <div className="row justify-content-center">
+            <div className="col-md-6 col-lg-4">
+              <div className="mt-5 pt-5 row">
+                <div
+                  className="p-3 text-dark rounded-3"
+                  style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', fontWeight: 'bold' }}
+                > <h1 className="display-3 fw-bold mb-5 text-white">
+                    <span className="text-primary">Payment Result</span>
+                  </h1>
+                  <h1>Order Detail</h1>
+                  <table className="table table-bordered " style={{ borderCollapse: 'collapse', backgroundColor: 'white' }}>
+
+                    <tbody>
+                      <tr >
+                        <td style={{ padding: '10px' }}>Member Name : </td>
+                        <td style={{ padding: '10px' }}>{mbName}</td>
+                      </tr>
+                      <tr >
+                        <td style={{ padding: '10px' }}>Order Number : </td>
+                        <td style={{ padding: '10px' }}>{orderDetail.Detail_ID}</td>
+                      </tr>
+                      <td style={{ padding: '10px' }}>Transaction Amount (NT$) :</td>
+                      <td style={{ padding: '10px' }}>{orderDetail.Price}</td>
+                      <tr>
+                        <td style={{ padding: '10px' }}>Car Model :</td>
+                        <td style={{ padding: '10px' }}>{orderDetail.CarType}</td>
+                      </tr>
+                      <tr>
+                        <td style={{ padding: '10px' }}>Booking Shop :</td>
+                        <td style={{ padding: '10px' }}>{orderDetail.Location}</td>
+                      </tr>
+                      <tr>
+                        <td style={{ padding: '10px' }}>Order Establishment Time :</td>
+                        <td style={{ padding: '10px' }}>{orderDetail.Date}</td>
+                      </tr>
+                      <tr>
+                        <td style={{ padding: '10px' }}>Transaction Completion Time</td>
+                        <td style={{ padding: '10px' }}>{reDate}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div className="container mt-3">
+                    <div className="d-flex justify-content-between">
+                      <form onSubmit={handleback}>
+                        <button type="submit" className="btn btn-primary">HomePage</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
   );
 };

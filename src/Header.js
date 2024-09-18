@@ -3,11 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { logout as apiLogout } from './api';
 import { useAuth } from './AuthContext';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 function Header () {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
-
+    const jwtToken = Cookies.get('jwt');
+    const userlocal = localStorage.getItem('user');
+    const userObj = user ? JSON.parse(userlocal) : null;
+    const token = userObj ? userObj.token : null;
     const handleLogout = async () => {
         try {
             await apiLogout(); // 調用登出 API
@@ -18,17 +22,25 @@ function Header () {
         }
     };
 
-    const memberID = "2";
+    
     const handleIdClick = async (e) => {
         e.preventDefault();
+        if(userObj!=null){
         try {
             const response = await axios.post('http://localhost:8080/carrent/forOrder', {
-                memberID
+                token
+            }, {
+                headers: {
+                    Authorization: `Bearer ${jwtToken}`
+                },
+                withCredentials: true
             });
             console.log('API 回應:', response.data);
             navigate('/forOrder', { state: { mbID: response.data } });
         } catch (error) {
-            console.error('提交表單錯誤:', error);
+            console.error('Error submitting form:', error);
+        }}else{
+            navigate('/login');
         }
     };
 
@@ -61,7 +73,7 @@ function Header () {
                                     <Link className="nav-link p-lg-3" to="/">Locations</Link> 
                                 </li>
                                 <li className="nav-item"> 
-                                    <Link className="nav-link p-lg-3" to="/fleets">Our Fleet</Link> 
+                                <a className="nav-link p-lg-3" href="#" onClick={handleIdClick}>OrderDetail</a> 
                                 </li>
                                 <li className="nav-item"> 
                                     <Link className="nav-link p-lg-3" to="/">Support</Link> 
@@ -71,20 +83,19 @@ function Header () {
                                 </li>
                             </ul>
                             <div className="d-flex flex-wrap gap-2 py-1"> 
-                                {user ? (
-                                    <>
-                                        <span className="btn btn-outline-primary pe-4 ps-4">
-                                            {user.username}
-                                        </span>
-                                        <button onClick={handleLogout} className="btn btn-outline-primary pe-4 ps-4">登出</button>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Link to="/login" className="btn btn-outline-primary pe-4 ps-4">Log In</Link> 
-                                        <Link to="/signup" className="btn btn-outline-primary pe-4 ps-4">Sign up</Link>
-                                    </>
-                                )}
-                                <Link to="/forOrder" className="btn btn-outline-primary pe-4 ps-4" onClick={handleIdClick}>Order</Link>
+                            {user ? (
+                                <>
+                                    <span className="btn btn-outline-primary pe-4 ps-4">
+                                        {user.username}
+                                    </span>
+                                    <button onClick={handleLogout} className="btn btn-outline-primary pe-4 ps-4">登出</button>
+                                </>
+                            ) : (
+                                <>
+                                    <Link to="/login" className="btn btn-outline-primary pe-4 ps-4">Log In</Link> 
+                                    <Link to="/signup" className="btn btn-outline-primary pe-4 ps-4">Sign up</Link>
+                                </>
+                            )}                            
                             </div>                    
                         </div>                     
                     </div>                 
