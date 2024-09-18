@@ -23,14 +23,11 @@ function Footer() {
                             <hr className="d-inline-block mb-4 w-25"/>
                             <ul className="list-unstyled"> 
                                 <li className="mb-3"> 
-                                    <a href="/fleets" className="link-light">Our Fleet</a> 
+                                    <a href="/" className="link-light">Home</a> 
                                 </li>
                                 <li className="mb-3"> 
                                     <Link to="/membership" className="link-light">Membership</Link> 
-                                </li>
-                                <li className="mb-3"> 
-                                    <Link to="/forOrder" className="link-light">Order</Link> 
-                                </li>                              
+                                </li>                            
                             </ul>                             
                         </div>
                         <div className="col-md col-sm-6 py-3"> 
