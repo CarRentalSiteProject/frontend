@@ -33,6 +33,7 @@ function MembershipInfo() {
     }, [navigate]);
     
 
+
     if (error) {
         return <div>{error}</div>; // 顯示錯誤信息
     }
