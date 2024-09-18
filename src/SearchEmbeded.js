@@ -24,7 +24,7 @@ function SearchEmbeded() {
             navigate('/login');
         } else {
         try {
-            navigate(`/search?place=${chplace}&start=${chdate}&end=${redate}&sortBy=${sortBy}&direction=${sortDirection}`);
+            navigate(`/search?place=${chplace}&start=${chdate}&end=${redate}&sortBy=${sortBy}&direction=${sortDirection}`); // &carType=null&priceMin=${-1}&priceMax=${-1}&peopleNub=${-1}
         } catch (error) {
             console.error('Error submitting form:', error);
             }
@@ -42,18 +42,18 @@ function SearchEmbeded() {
         } else {
         try {
             //navigate(`/search?place=${chplace}&start=${chdate}&end=${redate}`);
-             const response = await axios.post('http://localhost:8080/carrent/searchPlace2', {
-                 chplace,
-                 chdate,
-                 redate
-             }, {
+            const response = await axios.post('http://localhost:8080/carrent/searchPlace2', {
+                chplace,
+                chdate,
+                redate
+            }, {
                 headers: {
                     Authorization: `Bearer ${jwtToken}`
                 },
                 withCredentials: true
             });
-             console.log('API Response:', response.data);
-             navigate('/menu', { state: { cars: response.data, chdate, redate } });
+            console.log('API Response:', response.data);
+            navigate('/menu', { state: { cars: response.data, chdate, redate } });
         } catch (error) {
             console.error('Error submitting form:', error);
             }
