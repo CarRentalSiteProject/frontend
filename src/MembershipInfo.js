@@ -9,29 +9,45 @@ function MembershipInfo() {
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user'));
-        console.log('Retrieved user:', user);  // 調試語句
         const token = user ? user.token : null;
-    
-        console.log('Token:', token);  // 調試語句
+
         if (!token) {
-            alert("Please log in!");  // 顯示提示框
-            navigate('/login');  // 導航到登入頁面
+            alert("Please log in!");
+            navigate('/login');
             return;
         }
-    
-        axios
-            .get('http://localhost:8080/api/membership', { headers: { Authorization: `Bearer ${token}` } })
+
+        let isMounted = true; // Flag to check if component is mounted
+
+        axios.get('http://localhost:8080/api/membership', {
+            headers: { Authorization: `Bearer ${token}` }
+        })
             .then((response) => {
-                setMemberData(response.data);
-                setError(null);
+                if (isMounted) {
+                    setMemberData(response.data);
+                    setError(null);
+                }
             })
             .catch((error) => {
-                console.error('Error fetching membership data:', error);  // 調試語句
-                setError('Failed to fetch member data. Please try again later.');
-                navigate('/login');
+                console.error('Error fetching membership data:', error);
+                if (error.response?.status === 403) {
+                    if (isMounted) {
+                        alert('Session expired. Please log in again.');
+                        navigate('/login');
+                    }
+                } else {
+                    if (isMounted) {
+                        setError('Failed to fetch member data.');
+                    }
+                }
             });
+
+        return () => {
+            isMounted = false; // Cleanup function to set flag to false on unmount
+        };
     }, [navigate]);
-    
+
+
 
     if (error) {
         return <div>{error}</div>; // 顯示錯誤信息

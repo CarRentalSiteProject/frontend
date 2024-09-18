@@ -64,7 +64,7 @@ function App() {
           <Route path="/rentOrder" element={<RentOrder />} /> 
           <Route path="/fleets" element={<Fleets />} />
           <Route path="/updateinfo" element={<UpdateInfo />} />
-          <Route path="/membership" element={<ProtectedRoute><Membership /></ProtectedRoute>} /> 
+          <Route path="/membership" element={<Membership />} /> 
           <Route path="/carrent/paymentResultPage" element={<PaymentResultPage/>} />
           <Route path="/carrent/paymentResult" element={<PaymentResult/>} />
           <Route path="/forOrder" element={<ForOrder/>} />
