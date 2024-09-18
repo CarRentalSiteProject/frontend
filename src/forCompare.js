@@ -5,22 +5,27 @@ function SideBar({ startPlace, startDate, endDate }) {
   const [chplace, setChPlace] = useState(startPlace || ''); 
   const [chdate, setChDate] = useState(startDate || '');
   const [redate, setReDate] = useState(endDate || '');
-  const [sortBy, setSortBy] = useState('sortByPrice');
+  const [sortBy, setSortBy] = useState('price');
   const [sortDirection, setSortDirection] = useState('desc');
   const [type, setType] = useState('type');
   const [min, setPriceMin] = useState('min');
   const [max, setPriceMax] = useState('max');
   const [peopleNub, setPeopleNub] = useState(2);
+  const [isCollapsed, setIsCollapsed] = useState(false); // New state for collapse
   const navigate = useNavigate();
 
   const handleSearching = async (e) => {
     e.preventDefault();
     try {
-      console.log({ chplace, chdate, redate, sortBy });
-      navigate(`/search?place=${chplace}&start=${chdate}&end=${redate}&sortBy=${sortBy}&direction=${sortDirection}&carType=${type}&priceMin=${min}&priceMax=${max}&peopleNub=${peopleNub}`);
+      console.log("SideBar, " + { chplace, chdate, redate, sortBy });
+      navigate(`/search?place=${chplace}&start=${chdate}&end=${redate}&sortBy=${sortBy}&direction=${sortDirection}`); // &carType=${type}&priceMin=${min}&priceMax=${max}&peopleNub=${peopleNub}
     } catch (error) {
       console.error('Error submitting form:', error);
     }
+  };
+
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
   };
 
   return (
@@ -28,7 +33,14 @@ function SideBar({ startPlace, startDate, endDate }) {
       <div className="card bg-white border border-3 border-primary rounded col-sm p-4">
         <div className="cardbody">
           <form onSubmit={handleSearching}>
-            <h2 className="h5 mb-4 pt-1 pb-3 border-bottom fw-bold text-dark" data-bs-toggle="collapse" data-bs-target="#collapse-search-1" aria-expanded="false" aria-controls="collapse-search-1">
+            <h2 
+            className="h5 mb-4 pt-1 pb-3 border-bottom fw-bold text-dark" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#collapse-search-1" 
+            onClick={toggleCollapse}  // Toggle collapse on click
+            aria-expanded={!isCollapsed} // Dynamically set expanded state
+            aria-controls="collapse-search-1"
+            >
               <span>
               Location & Date
               {/* https://www.svgrepo.com/ */}
@@ -81,7 +93,13 @@ function SideBar({ startPlace, startDate, endDate }) {
                 /> 
               </div>
             </div>
-            <h2 className="h5 mb-4 pt-1 pb-3 border-bottom fw-bold text-dark" data-bs-toggle="collapse" data-bs-target="#collapse-search-2" aria-expanded="false" aria-controls="collapse-search-2">
+            <h2 
+            className="h5 mb-4 pt-1 pb-3 border-bottom fw-bold text-dark" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#collapse-search-2" 
+            onClick={toggleCollapse}  // Toggle collapse on click
+            aria-expanded={!isCollapsed} // Dynamically set expanded state
+            aria-controls="collapse-search-2">
               <span>
               Sort by
               <svg className="float-end" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -136,15 +154,22 @@ function SideBar({ startPlace, startDate, endDate }) {
                 </div>
               </div>
             </div>
-            <h2 className="h5 mb-4 pt-1 pb-3 border-bottom fw-bold text-dark" data-bs-toggle="collapse" data-bs-target="#collapse-search-3" aria-expanded="false" aria-controls="collapse-search-3">
-              <span>
-                Conditions
-                {/* https://www.svgrepo.com/ */}
-                <svg className="float-end" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fillRule="evenodd" clipRule="evenodd" d="M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z" fill="#000000"/>
-                </svg>
-              </span>
-            </h2>
+            <h2 
+            className="h5 mb-4 pt-1 pb-3 border-bottom fw-bold text-dark" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#collapse-search-3" 
+            onClick={toggleCollapse}  // Toggle collapse on click
+            aria-expanded={!isCollapsed} // Dynamically set expanded state
+            aria-controls="collapse-search-3"
+            hidden>
+            <span>
+              Conditions
+              {/* https://www.svgrepo.com/ */}
+              <svg className="float-end" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fillRule="evenodd" clipRule="evenodd" d="M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z" fill="#000000"/>
+              </svg>
+            </span>
+          </h2>
             <div className="align-items-center gx-2 gy-3 collapse" id="collapse-search-3">
               <div className="col-sm p-2"> 
                 <label className="h6 mb-3 pt-1 pb-3 border-bottom fw-bold text-dark">Brands</label>
@@ -186,24 +211,24 @@ function SideBar({ startPlace, startDate, endDate }) {
                   />
                 </div>
               </div>
-              <div className="col-sm p-2">
-                <label htmlFor="passengersRange" className="h6 mb-3 pt-1 pb-3 border-bottom fw-bold text-dark">Passengers</label>
-                <input 
-                  type="range" 
-                  className="form-range" 
-                  value={peopleNub} 
-                  min="2" 
-                  max="6" 
-                  step="1" 
-                  id="passengersRange" 
-                  onChange={(e) => setPeopleNub(e.target.value)}
-                />
-                <div className="text-center fw-bold">{peopleNub} Passengers</div>
+                <div className="col-sm p-2">
+                  <label htmlFor="passengersRange" className="h6 mb-3 pt-1 pb-3 border-bottom fw-bold text-dark">Passengers</label>
+                  <input 
+                    type="range" 
+                    className="form-range" 
+                    value={peopleNub} 
+                    min="2" 
+                    max="6" 
+                    step="1" 
+                    id="passengersRange" 
+                    onChange={(e) => setPeopleNub(e.target.value)}
+                  />
+                  <div className="text-center fw-bold">{peopleNub} Passengers</div>
+                </div>        
               </div>
-            </div>
-            <div className="col-sm-auto mt-3 p-2 text-end">
-              <button type="submit" className="btn btn-primary pb-2 pe-4 ps-4 pt-2">Search</button>
-            </div>
+              <div className="col-sm-auto mt-3 p-2 text-end"> 
+                <button type="submit" className="btn btn-primary pb-2 pe-4 ps-4 pt-2">Search</button> 
+            </div>                   
           </form>
         </div>
       </div>

@@ -11,43 +11,46 @@ function SideBar({ startPlace, startDate, endDate }) {
   const [min, setPriceMin] = useState('min');
   const [max, setPriceMax] = useState('max');
   const [peopleNub, setPeopleNub] = useState(2);
+  const [isCollapsed1, setIsCollapsed1] = useState(false); // New state for collapse
+  const [isCollapsed2, setIsCollapsed2] = useState(true);
+  const [isCollapsed3, setIsCollapsed3] = useState(false); // New state for collapse
   const navigate = useNavigate();
 
   const handleSearching = async (e) => {
     e.preventDefault();
     try {
       console.log("SideBar, " + { chplace, chdate, redate, sortBy });
-      navigate(`/search?place=${chplace}&start=${chdate}&end=${redate}&sortBy=${sortBy}&direction=${sortDirection}&carType=${type}&priceMin=${min}&priceMax=${max}&peopleNub=${peopleNub}`);
+      navigate(`/search?place=${chplace}&start=${chdate}&end=${redate}&sortBy=${sortBy}&direction=${sortDirection}`); // &carType=${type}&priceMin=${min}&priceMax=${max}&peopleNub=${peopleNub}
     } catch (error) {
       console.error('Error submitting form:', error);
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      console.log("SideBar, " + { chplace, chdate, redate, sortBy });
-      navigate(`/search?place=${chplace}&start=${chdate}&end=${redate}&sortBy=${sortBy}&direction=${sortDirection}`);
-    } catch (error) {
-      console.error('Error submitting form:', error);
-    }
-  };
+  // Toggle functions for each collapse section
+  const toggleCollapse1 = () => setIsCollapsed1(!isCollapsed1);
+  const toggleCollapse2 = () => setIsCollapsed2(!isCollapsed2);
+  const toggleCollapse3 = () => setIsCollapsed3(!isCollapsed3);
 
   return (
     <div id="sidebar" className="sidebar sticky-lg-top">
       <div className="card bg-white border border-3 border-primary rounded col-sm p-4">
         <div className="cardbody">
           <form onSubmit={handleSearching}>
-            <h2 className="h5 mb-4 pt-1 pb-3 border-bottom fw-bold text-dark" data-bs-toggle="collapse" data-bs-target="#collapse-search-1" aria-expanded="false" aria-controls="collapse-search-1">
+            <h2 
+              className="h5 mb-4 pt-1 pb-3 border-bottom fw-bold text-dark" 
+              data-bs-toggle="collapse"
+              onClick={toggleCollapse1}  // Toggle collapse on click
+              aria-expanded={!isCollapsed1} // Dynamically set expanded state
+              aria-controls="collapse-search-1"
+            >
               <span>
-              Location & Date
-              {/* https://www.svgrepo.com/ */}
-              <svg className="float-end" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fillRule="evenodd" clipRule="evenodd" d="M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z" fill="#000000"/>
-              </svg>
+                Location & Date
+                <svg className="float-end" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z" fill="#000000"/>
+                </svg>
               </span>
             </h2>
-            <div className="align-items-center gx-2 gy-3 collapse" id="collapse-search-1">
+            <div className={`align-items-center gx-2 gy-3 collapse ${!isCollapsed1 ? '' : 'show'}`} id="collapse-search-1">
               <div className="col-sm p-2"> 
                 <select 
                   className="form-control pb-2 pe-3 ps-3 pt-2 rounded-0" 
@@ -91,7 +94,12 @@ function SideBar({ startPlace, startDate, endDate }) {
                 /> 
               </div>
             </div>
-            <h2 className="h5 mb-4 pt-1 pb-3 border-bottom fw-bold text-dark" data-bs-toggle="collapse" data-bs-target="#collapse-search-2" aria-expanded="false" aria-controls="collapse-search-2">
+            <h2 
+            className="h5 mb-4 pt-1 pb-3 border-bottom fw-bold text-dark" 
+            data-bs-toggle="collapse"
+            onClick={toggleCollapse2}  // Toggle collapse on click
+            aria-expanded={!isCollapsed2} // Dynamically set expanded state
+            aria-controls="collapse-search-2">
               <span>
               Sort by
               <svg className="float-end" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -99,7 +107,7 @@ function SideBar({ startPlace, startDate, endDate }) {
               </svg>
               </span>
             </h2>
-            <div className="collapse" id="collapse-search-2">
+            <div className={`align-items-center gx-2 gy-3 collapse ${isCollapsed2 ? '' : 'show'}`} id="collapse-search-2">
               {/* Sort by selection */}
               <div className="col-sm p-2">
                 <div className="form-check">
@@ -146,16 +154,22 @@ function SideBar({ startPlace, startDate, endDate }) {
                 </div>
               </div>
             </div>
-          <h2 className="h5 mb-4 pt-1 pb-3 border-bottom fw-bold text-dark" data-bs-toggle="collapse" data-bs-target="#collapse-search-3" aria-expanded="false" aria-controls="collapse-search-3" hidden>
-            <span>
-              Conditions
-              {/* https://www.svgrepo.com/ */}
-              <svg className="float-end" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fillRule="evenodd" clipRule="evenodd" d="M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z" fill="#000000"/>
-              </svg>
-            </span>
-          </h2>
-            <div className="align-items-center gx-2 gy-3 collapse" id="collapse-search-3">
+            <h2 
+            className="h5 mb-4 pt-1 pb-3 border-bottom fw-bold text-dark" 
+            data-bs-toggle="collapse"
+            onClick={toggleCollapse3}  // Toggle collapse on click
+            aria-expanded={!isCollapsed3} // Dynamically set expanded state
+            aria-controls="collapse-search-3"
+            hidden>
+              <span>
+                Conditions
+                {/* https://www.svgrepo.com/ */}
+                <svg className="float-end" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z" fill="#000000"/>
+                </svg>
+              </span>
+            </h2>
+            <div hidden className={`align-items-center gx-2 gy-3 collapse ${isCollapsed3 ? '' : 'show'}`} id="collapse-search-3">
               <div className="col-sm p-2"> 
                 <label className="h6 mb-3 pt-1 pb-3 border-bottom fw-bold text-dark">Brands</label>
                 <select 
@@ -211,8 +225,8 @@ function SideBar({ startPlace, startDate, endDate }) {
                   <div className="text-center fw-bold">{peopleNub} Passengers</div>
                 </div>        
               </div>
-              <div className="col-sm-auto mt-3 p-2 text-end"> 
-                <button type="submit" className="btn btn-primary pb-2 pe-4 ps-4 pt-2">Search</button> 
+            <div className="col-sm-auto mt-3 p-2 text-end"> 
+              <button type="submit" className="btn btn-primary pb-2 pe-4 ps-4 pt-2">Search</button> 
             </div>                   
           </form>
         </div>

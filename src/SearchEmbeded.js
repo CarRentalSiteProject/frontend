@@ -120,7 +120,7 @@ function SearchEmbeded() {
                                     </div>                                     
                                 </form>
                             </div>
-                            <div className="bg-white p-4">
+                            <div className="bg-white p-4" hidden>
                                 <h2 className="fw-bold h5 mb-3 text-dark">暫時性測試</h2>
                                 <form onSubmit={handleSubmit2}> 
                                     <div className="align-items-center gx-2 gy-3 row">
