@@ -16,6 +16,7 @@ function RentOrder() {
     const handleCancel = (event) => {
         event.preventDefault(); // 阻止表單的默認提交行為
         navigate('/'); // 導航回首頁
+        window.scrollTo(0, 0);//回網頁頂部
     };
 
     const handlePayment = async (e) => {
@@ -26,6 +27,8 @@ function RentOrder() {
                 carId: cDetails.CarID,
                 chdate: chdate,
                 redate: redate,
+                token:jwtToken
+                //jwttk: jwtToken
             }, {
                 headers: {
                     Authorization: `Bearer ${jwtToken}`

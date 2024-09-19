@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -6,9 +6,44 @@ function ForOrder() {
   const location = useLocation();
   const navigate = useNavigate();
   const { mbID } = location.state || {};
-  const orders = mbID.mbodDataStr;
-  const mbname = mbID.mbName;
+  //const orders = mbID.mbodDataStr;
+  //const mbname = mbID.mbName;
   const jwtToken = Cookies.get('jwt');
+  const [orders, setOrders] = useState(null);
+  const [mbname, setMbname] = useState('');
+  
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const params = new URLSearchParams(location.search);
+      const mbID = params.get('mbi');
+
+      if (mbID) {
+        try {
+          const response = await axios.get(`http://localhost:8080/carrent/forOrder?mbID=${mbID}`, {
+            headers: {
+              Authorization: `Bearer ${jwtToken}`
+            },
+            withCredentials: true
+          });
+          setOrders(response.data.mbodDataStr);
+          setMbname(response.data.mbName);
+        } catch (error) {
+          console.error('Error fetching order data:', error);
+          if (error.response && error.response.status === 302) {
+            // Handle redirect for unauthenticated users
+            navigate(error.response.headers.location);
+          }
+        }
+      } else if (location.state && location.state.mbID) {
+        // Use existing data from state if available
+        setOrders(location.state.mbID.mbodDataStr);
+        setMbname(location.state.mbID.mbName);
+      }
+    };
+
+    fetchData();
+  }, [location, jwtToken, navigate]);
 
   const handleback = (event) => {
     event.preventDefault(); // 阻止表單的默認提交行為
