@@ -10,9 +10,14 @@
 * 條件查詢
 * 第三方金流支付
 * 查看訂單
+* JWT Security
 ## 系統架構
 ## 安裝與使用
-1. 需透過npm安裝套件
+1. Clone本專案到本地端
+```bash=
+git clone https://github.com/CarRentalSiteProject/CarRentalSiteProject.git
+```
+2. 需透過npm安裝套件
 ```bash=
 npm i react-scripts
 npm i react-dom
@@ -22,3 +27,8 @@ npm i @popperjs/core
 npm i bootstrap@5
 npm i axios
 ```
+3. application.properties中更改資料庫名稱
+```bash=
+spring.datasource.url=jdbc:mysql://localhost:3306/database_name
+```
+4. 執行CarRentTestApplication.java
