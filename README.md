@@ -13,10 +13,12 @@
 ## 系統架構
 ## 安裝與使用
 1. 需透過npm安裝套件
-* npm i react-scripts
-* npm i react-dom
-* npm i react-router-dom
-* npm i popper.js
-* npm i @popperjs/core
-* npm i bootstrap@5
-* npm i axios
+```bash=
+npm i react-scripts
+npm i react-dom
+npm i react-router-dom
+npm i popper.js
+npm i @popperjs/core
+npm i bootstrap@5
+npm i axios
+```
