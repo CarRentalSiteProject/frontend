@@ -1,0 +1,26 @@
+@media (max-width:991px) {
+    body.poster {
+        margin-top: 60vh;
+    }
+}
+
+body.poster {
+    background-attachment: fixed;
+}
+
+.top-5 {
+    top: 5px;
+}
+
+/* Sticky sidebar */
+.sticky-sidebar {
+    position: sticky;
+    top: 0;
+    height: calc(100vh - 80px); /* Adjust based on your header height */
+    overflow-y: auto;
+}
+
+/* Main content padding to avoid overlap with footer */
+.main-content {
+    padding-bottom: 150px; /* Footer height adjustment */
+}
